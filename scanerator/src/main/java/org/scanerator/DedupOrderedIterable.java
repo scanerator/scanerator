@@ -85,7 +85,7 @@ public class DedupOrderedIterable<T> extends AbstractOrderedIterable<T> {
 				throw new NoSuchElementException();
 			T n = next.poll();
 			// locate the next unique element and add it
-			if(itr.hasNext()) {
+			if(next.size() == 0 && itr.hasNext()) {
 				T n2 = itr.next();
 				while(cmp().compare(n, n2) == 0 && itr.hasNext())
 					n2 = itr.next();
