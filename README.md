@@ -141,3 +141,12 @@ The methods are briefly described below:
 	Returns a new `OrderedIterable` that de-duplicates this `OrderedIterable`, so equal elements
 	are returned only once.
 
+## Development
+**Scanerator** is developed on an open-source-licensed [Atlassian](https://www.atlassian.com/)
+stack hosted on my own server.  (The [stash repository](http://stash.robindps.com/projects/SCAN/repos/scanerator/browse)
+is mirrored to [Github](https://github.com/scanerator/scanerator).)
+
+Continuous integration is performed by [my Bamboo instance](http://bamboo.robindps.com/browse/SCAN).
+
+Bug reports, feature requests, and any other issues should be submitted
+to [my JIRA instance](http://jira.robindps.com/browse/SCAN/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel).
