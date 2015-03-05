@@ -1,5 +1,4 @@
 # Scanerator
-
 Library for manipulating `Iterable` objects that iterate over their
 elements in ascending order, according to some `Comparator`.
 Provides interface [`OrderedIterable`](scanerator/src/main/java/org/scanerator/OrderedIterable.java)
@@ -21,7 +20,6 @@ scan results can be easily processed by **Scanerator** to produce
 boolean expressions composed of multiple scans.
 
 ## Usage
-
 The utility class [`Scanerator`](scanerator/src/main/java/org/scanerator/Scanerator.java) can be used for most
 operations on `OrderedIterable` instances, as well as for wrapping
 existing `Iterable` instances.
@@ -43,7 +41,6 @@ existing `Iterable` instances.
 	List<Integer> mul6 = Scanerator.list(ord6); // List contains only '6'
 
 ## Maven Repository
-
 **Scanerator** is not yet on maven central, so a `<repository>` element is
 required to depend on it.  The following snippet may be used:
 
@@ -58,7 +55,6 @@ Best practices for Maven are to include `<repository>` elements as profiles
 in your local `settings.xml`, and **not** to include them in your `pom.xml`.
 
 ## Laziness
-
 Because `OrderedIterable` always iterates over its elements in
 ascending order, boolean operations can be performed on `OrderedIterable`
 instances in a lazy manner, e.g. without having to load the
@@ -70,7 +66,6 @@ boolean expressions implemented using **Scanerator** and sent back to the client
 incrementally.
 
 ## OrderedIterable Interface
-
 The [`OrderedIterable`](scanerator/src/main/java/org/scanerator/OrderedIterable.java) 
 interface, with comments removed, is reproduced below:
 
