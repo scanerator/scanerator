@@ -29,7 +29,7 @@ existing `Iterable` instances.
 	// Get an OrderedIterable that is the intersection of ord2 and ord3
 	OrderedIterable<Integer> ord6 = Scanerator.all(Arrays.asList(ord2, ord3));
 	
-	// Same thing as...
+	// Equivalent to...
 	ord6 = ord2.and(ord3);
 	
 	// Convert back to a list
@@ -78,5 +78,5 @@ Returns a new `OrderedIterable` that is the subtraction of the argument from thi
 ### dedup()
 
 Returns a new `OrderedIterable` that de-duplicates this `OrderedIterable`, so elements
-are returned only once.
+
 
