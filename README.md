@@ -46,3 +46,37 @@ results returned by HBase scans, which return rows in ascending
 order by row-key.  Data can be processed using boolean expressions
 implemented using **Scanerator** and sent back to the client
 incrementally.
+
+## OrderedIterable Interface
+
+The `OrderedIterable` interface, with comments removed, is reproduced below.
+
+	public interface OrderedIterable<T> extends Iterable<T> {
+		public Comparator<T> cmp();
+		public OrderedIterable<T> or(OrderedIterable<T> i);
+		public OrderedIterable<T> and(OrderedIterable<T> i);
+		public OrderedIterable<T> not(OrderedIterable<T> i);
+		public OrderedIterable<T> dedup();
+	}
+
+### cmp()
+
+Returns the `Comparator` used by this `OrderedIterable`.
+
+### or(OrderedIterable)
+
+Returns a new `OrderedIterable` that is the union of this `OrderedIterable` and the argument.
+
+### and(OrderedIterable)
+
+Returns a new `OrderedIterable` that is the intersection of this `OrderedIterable` and the argument.
+
+### not(OrderedIterable)
+
+Returns a new `OrderedIterable` that is the subtraction of the argument from this `OrderedIterable`.
+
+### dedup()
+
+Returns a new `OrderedIterable` that de-duplicates this `OrderedIterable`, so elements
+are returned only once.
+
