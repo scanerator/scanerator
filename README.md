@@ -65,17 +65,21 @@ The methods are briefly described below:
 	
 	Returns the `Comparator` used by this `OrderedIterable`.
 
+
 *	`or(OrderedIterable)`
 	
 	Returns a new `OrderedIterable` that is the union of this `OrderedIterable` and the argument.
+
 
 *	`and(OrderedIterable)`
 	
 	Returns a new `OrderedIterable` that is the intersection of this `OrderedIterable` and the argument.
 
+
 *	`not(OrderedIterable)`
 	
 	Returns a new `OrderedIterable` that is the subtraction of the argument from this `OrderedIterable`.
+
 
 *	`dedup()`
 	
