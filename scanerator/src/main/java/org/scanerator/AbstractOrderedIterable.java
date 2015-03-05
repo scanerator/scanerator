@@ -1,11 +1,7 @@
 package org.scanerator;
 
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 /**
  * Base implementation of {@link OrderedIterable}.  Extensions of this

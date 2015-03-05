@@ -2,8 +2,6 @@ package org.scanerator;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 /**
  * {@link OrderedIterable} that is the logical union of
