@@ -1,9 +1,16 @@
 package org.scanerator;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Deque;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class UnionOrderedIterable<T> extends AbstractOrderedIterable<T> {
 
@@ -24,57 +31,39 @@ public class UnionOrderedIterable<T> extends AbstractOrderedIterable<T> {
 		protected Iterator<T> litr = lhs.iterator();
 		protected Iterator<T> ritr = rhs.iterator();
 
-		protected List<T> lnext = new ArrayList<T>(1);
-		protected List<T> rnext = new ArrayList<T>(1);
+		protected Queue<T> next = new PriorityQueue<T>(2, cmp());
+		protected T llast;
+		protected T rlast;
 		
 		public Itr() {
 			if(litr.hasNext())
-				lnext.add(litr.next());
+				next.offer(llast = litr.next());
 			if(ritr.hasNext())
-				rnext.add(ritr.next());
+				next.offer(rlast = ritr.next());
 		}
 
 		public boolean hasNext() {
-			return lnext.size() + rnext.size() > 0;
+			return !next.isEmpty();
 		}
 	
 		public T next() {
 			if(!hasNext())
 				throw new NoSuchElementException();
-			T next;
-			if(lnext.size() == 0) {
-				next = rnext.remove(0);
-				if(ritr.hasNext())
-					rnext.add(ritr.next());
-			} else if(rnext.size() == 0) {
-				next = lnext.remove(0);
-				if(litr.hasNext())
-					lnext.add(litr.next());
-			} else {
-				T left = lnext.get(0);
-				T right = rnext.get(0);
-				int c = cmp.compare(left, right);
-				if(c < 0) {
-					next = left;
-					lnext.remove(0);
-					if(litr.hasNext())
-						lnext.add(litr.next());
-				} else if(c > 0) {
-					next = right;
-					rnext.remove(0);
-					if(ritr.hasNext())
-						rnext.add(ritr.next());
-				} else {
-					next = left;
-					lnext.remove(0);
-					rnext.remove(0);
-					if(litr.hasNext())
-						lnext.add(litr.next());
-					if(ritr.hasNext())
-						rnext.add(ritr.next());
-				}
+			
+			T n = next.poll();
+			
+			if(litr.hasNext() && ritr.hasNext()) {
+				if(cmp().compare(llast, rlast) <= 0)
+					next.offer(llast = litr.next());
+				else
+					next.offer(rlast = ritr.next());
+			} else if(litr.hasNext()) {
+				next.offer(litr.next());
+			} else if(ritr.hasNext()) {
+				next.offer(ritr.next());
 			}
-			return next;
+			
+			return n;
 		}
 	
 		public void remove() {

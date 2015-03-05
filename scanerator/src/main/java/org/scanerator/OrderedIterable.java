@@ -23,7 +23,23 @@ import java.util.Comparator;
  * @see AbstractOrderedIterable
  */
 public interface OrderedIterable<T> extends Iterable<T> {
+	/**
+	 * Returns the {@link Comparator} used when comparing
+	 * elements to ensure {@link #iterator()} returns elements
+	 * in ascending order
+	 * @return
+	 */
 	public Comparator<T> cmp();
+	
+	/**
+	 * Returns a new {@link OrderedIterable} that is the logical
+	 * "union" of this {@link OrderedIterable} and the argument.
+	 * Elements of this {@link OrderedIterable} or the argument that 
+	 * are duplicated will be duplicated in the returned
+	 * {@link OrderedIterable}
+	 * @param i
+	 * @return
+	 */
 	public OrderedIterable<T> any(OrderedIterable<T> i);
 	public OrderedIterable<T> all(OrderedIterable<T> i);
 	public OrderedIterable<T> not(OrderedIterable<T> i);

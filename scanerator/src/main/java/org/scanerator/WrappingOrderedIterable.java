@@ -41,14 +41,14 @@ public class WrappingOrderedIterable<T> extends AbstractOrderedIterable<T> {
 			if(!hasNext())
 				throw new NoSuchElementException();
 			T n = next.remove(0);
-			if(next.size() > 0 && cmp.compare(n, next.get(0)) > 0) {
+			if(next.size() > 0 && cmp().compare(n, next.get(0)) > 0) {
 				if(!dropDescending)
 					throw new IllegalStateException("Not an ascending iterator: " + itr + " found " + n + " followed by " + next.get(0));
 				do {
 					next.remove(0);
 					if(itr.hasNext())
 						next.add(itr.next());
-				} while(next.size() > 0 && cmp.compare(n, next.get(0)) > 0);
+				} while(next.size() > 0 && cmp().compare(n, next.get(0)) > 0);
 			}
 			if(itr.hasNext())
 				next.add(itr.next());

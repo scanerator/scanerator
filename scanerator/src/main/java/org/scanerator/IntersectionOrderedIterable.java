@@ -40,7 +40,7 @@ public class IntersectionOrderedIterable<T> extends AbstractOrderedIterable<T> {
 			if(empty)
 				return false;
 			int c;
-			while(!empty && (c = cmp.compare(lnext, rnext)) != 0) {
+			while(!empty && (c = cmp().compare(lnext, rnext)) != 0) {
 				if(c < 0) {
 					if(!litr.hasNext())
 						empty = true;
