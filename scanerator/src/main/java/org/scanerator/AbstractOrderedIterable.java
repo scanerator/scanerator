@@ -142,4 +142,8 @@ public abstract class AbstractOrderedIterable<T> implements OrderedIterable<T> {
 	public OrderedIterable<T> not(OrderedIterable<T> i) {
 		return new SubtractionOrderedIterable<T>(this, i);
 	}
+	
+	public OrderedIterable<T> dedup() {
+		return new DedupOrderedIterable<T>(this);
+	}
 }

@@ -66,4 +66,6 @@ public interface OrderedIterable<T> extends Iterable<T> {
 	 * @see SubtractionOrderedIterable
 	 */
 	public OrderedIterable<T> not(OrderedIterable<T> i);
+	
+	public OrderedIterable<T> dedup();
 }

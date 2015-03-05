@@ -5,9 +5,24 @@ import java.util.NoSuchElementException;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+/**
+ * {@link OrderedIterable} that is the logical union of
+ * the left-hand side and the right-hand side.  Elements
+ * duplicated in lhs and rhs will be duplicated in this
+ * {@link OrderedIterable}.
+ * @author robin
+ *
+ * @param <T>
+ */
 public class UnionOrderedIterable<T> extends AbstractOrderedIterable<T> {
 
+	/**
+	 * The left-hand side of the union
+	 */
 	protected OrderedIterable<T> lhs;
+	/**
+	 * The right-hand side of the union
+	 */
 	protected OrderedIterable<T> rhs;
 	
 	public UnionOrderedIterable(OrderedIterable<T> lhs, OrderedIterable<T> rhs) {
