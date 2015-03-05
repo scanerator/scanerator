@@ -83,6 +83,6 @@ The methods are briefly described below:
 
 *	`dedup()`
 	
-	Returns a new `OrderedIterable` that de-duplicates this `OrderedIterable`, so elements
-
+	Returns a new `OrderedIterable` that de-duplicates this `OrderedIterable`, so equal elements
+	are returned only once.
 
