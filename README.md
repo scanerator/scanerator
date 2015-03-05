@@ -2,8 +2,8 @@
 
 Library for manipulating `Iterable` objects that iterate over their
 elements in ascending order, according to some `Comparator`.
-Provides interface `OrderedIterable` to be implemented by these
-ascending-order `Iterable`s, as well as utility functions and
+Provides interface [`OrderedIterable`](scanerator/src/main/java/org/scanerator/OrderedIterable.java)
+to be implemented by these ascending-order `Iterable`s, as well as utility functions and
 class implementations of common operations which can be performed
 on ordered `Iterable`s.
 
@@ -15,7 +15,7 @@ on ordered `Iterable`s.
 
 ## Usage
 
-The utility class `Scanerator` can be used for most
+The utility class [`Scanerator`](scanerator/src/main/java/org/scanerator/Scanerator.java) can be used for most
 operations on `OrderedIterable` instances, as well as for wrapping
 existing `Iterable` instances.
 
@@ -49,7 +49,8 @@ incrementally.
 
 ## OrderedIterable Interface
 
-The `OrderedIterable` interface, with comments removed, is reproduced below:
+The [`OrderedIterable`](scanerator/src/main/java/org/scanerator/OrderedIterable.java) 
+interface, with comments removed, is reproduced below:
 
 	public interface OrderedIterable<T> extends Iterable<T> {
 		public Comparator<T> cmp();
