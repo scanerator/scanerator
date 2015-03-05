@@ -31,9 +31,7 @@ public class ScaneratorTest {
 	
 	@Test
 	public void testAny() {
-		Assert.assertEquals(Arrays.asList(2,3,4,6,8,9,10,12), list(any(Arrays.asList(mul2, mul3))));
-		
-		Assert.assertEquals(list(mul2), list(any(Arrays.asList(mul2, mul2, mul2, mul2, mul2))));
+		Assert.assertEquals(Arrays.asList(2,3,4,6,6,8,9,10,12,12), list(any(Arrays.asList(mul2, mul3))));
 	}
 	
 	@Test
