@@ -15,7 +15,7 @@ on ordered `Iterable`s.
 
 ## Usage
 
-The utility class `org.scanerator.Scanerator` can be used for most
+The utility class `Scanerator` can be used for most
 operations on `OrderedIterable` instances, as well as for wrapping
 existing `Iterable` instances.
 
