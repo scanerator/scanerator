@@ -2,14 +2,40 @@ package org.scanerator;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Utility class for dealing with {@link OrderedIterable}s
+ * @author robin
+ *
+ */
 public class Scanerator {
 	
+	/**
+	 * Return an {@link OrderedIterable} that wraps the {@link Iterable} argument,
+	 * using the specified {@link Comparator}, and the specified behavior
+	 * if out-of-order elements are encountered.
+	 * @param itr The {@link Iterator} to wrap
+	 * @param cmp The {@link Comparator} to compare with
+	 * @param dropDescending {@code true} to silently drop out-of-order elements.
+	 * {@code false} to throw an {@link IllegalStateException} when out-of-order
+	 * elements are encountered
+	 * @return A new {@link OrderedIterable}
+	 */
 	public static <T> OrderedIterable<T> itr(Iterable<T> itr, Comparator<? super T> cmp, boolean dropDescending) {
 		return new WrappingOrderedIterable<T>(itr, cmp, dropDescending);
 	}
 	
+	/**
+	 * Return an {@link OrderedIterable} that wraps the {@link Iterable} argument
+	 * using the "natural order" {@link Comparator}, {@link Comparators#NATURAL_ORDER},
+	 * throwing an {@link IllegalStateException} if the wrapped {@link Iterable}
+	 * returns an out-of-order element.
+	 * @param itr
+	 * @return
+	 * @see #itr(Iterable, Comparator, boolean)
+	 */
 	public static <T> OrderedIterable<T> itr(Iterable<T> itr) {
 		return itr(itr, Comparators.<T>naturalOrder(), false);
 	}
