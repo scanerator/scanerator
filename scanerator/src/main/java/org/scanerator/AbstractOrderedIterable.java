@@ -8,8 +8,8 @@ import java.util.TreeSet;
 public abstract class AbstractOrderedIterable<T> implements OrderedIterable<T> {
 
 	protected class Box {
-		protected int capacity;
-		protected SortedSet<T> items = new TreeSet<T>(cmp());
+		private int capacity;
+		private SortedSet<T> items = new TreeSet<T>(cmp());
 		
 		public Box(int capacity) {
 			if(capacity <= 0)
@@ -23,6 +23,14 @@ public abstract class AbstractOrderedIterable<T> implements OrderedIterable<T> {
 		
 		public boolean isEmpty() {
 			return items.size() == 0;
+		}
+		
+		public int xapacity() {
+			return capacity;
+		}
+		
+		public int size() {
+			return items.size();
 		}
 		
 		public boolean add(T item) {
@@ -49,7 +57,7 @@ public abstract class AbstractOrderedIterable<T> implements OrderedIterable<T> {
 		}
 	}
 	
-	private Comparator<T> cmp;
+	protected Comparator<T> cmp;
 	
 	@SuppressWarnings("unchecked")
 	public AbstractOrderedIterable(Comparator<? super T> cmp) {
