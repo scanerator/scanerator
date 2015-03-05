@@ -45,8 +45,7 @@ existing `Iterable` instances.
 ## Maven Repository
 
 **Scanerator** is not yet on maven central, so a `<repository>` element is
-required in your `pom.xml` to depend on it.  The following snippet may
-be used:
+required to depend on it.  The following snippet may be used:
 
 	<repository>
 		<id>robin-kirkman-nexus</id>
@@ -55,6 +54,8 @@ be used:
 		<releases><enabled>true</enabled></releases>
 	</repository>
 
+Best practices for Maven are to include `<repository>` elements as profiles
+in your local `settings.xml`, and **not** to include them in your `pom.xml`.
 
 ## Laziness
 
