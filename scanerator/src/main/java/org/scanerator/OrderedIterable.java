@@ -41,7 +41,7 @@ public interface OrderedIterable<T> extends Iterable<T> {
 	 * @return
 	 * @see UnionOrderedIterable
 	 */
-	public OrderedIterable<T> any(OrderedIterable<T> i);
+	public OrderedIterable<T> or(OrderedIterable<T> i);
 	
 	/**
 	 * Returns a new {@link OrderedIterable} that is the logical
@@ -53,7 +53,7 @@ public interface OrderedIterable<T> extends Iterable<T> {
 	 * @return
 	 * @see IntersectionOrderedIterable
 	 */
-	public OrderedIterable<T> all(OrderedIterable<T> i);
+	public OrderedIterable<T> and(OrderedIterable<T> i);
 	
 	/**
 	 * Returns a new {@link OrderedIterable} that is the logical

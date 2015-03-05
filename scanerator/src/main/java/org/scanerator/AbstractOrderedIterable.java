@@ -127,11 +127,11 @@ public abstract class AbstractOrderedIterable<T> implements OrderedIterable<T> {
 		return cmp;
 	}
 	
-	public OrderedIterable<T> all(OrderedIterable<T> i) {
+	public OrderedIterable<T> and(OrderedIterable<T> i) {
 		return new IntersectionOrderedIterable<T>(this, i);
 	}
 	
-	public OrderedIterable<T> any(OrderedIterable<T> i) {
+	public OrderedIterable<T> or(OrderedIterable<T> i) {
 		return new UnionOrderedIterable<T>(this, i);
 	}
 	
