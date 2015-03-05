@@ -24,7 +24,7 @@ public class UnionOrderedIterable<T> extends AbstractOrderedIterable<T> {
 		protected Iterator<T> litr = lhs.iterator();
 		protected Iterator<T> ritr = rhs.iterator();
 
-		protected Queue<T> next = new PriorityQueue<T>(2, cmp());
+		protected PQ next = new PQ(2);
 		protected T llast;
 		protected T rlast;
 		
