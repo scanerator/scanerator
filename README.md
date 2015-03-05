@@ -24,6 +24,8 @@ The utility class [`Scanerator`](scanerator/src/main/java/org/scanerator/Scanera
 operations on `OrderedIterable` instances, as well as for wrapping
 existing `Iterable` instances.
 
+Basic Usage:
+
 	List<Integer> mul2 = Arrays.asList(2, 4, 6, 8, 10);
 	List<Integer> mul3 = Arrays.asList(3, 6, 9);
 	
@@ -39,6 +41,39 @@ existing `Iterable` instances.
 	
 	// Convert back to a list
 	List<Integer> mul6 = Scanerator.list(ord6); // List contains only '6'
+
+A more practical example uses [HBase](http://hbase.apache.org/).  The following
+snippet finds all row keys that have a first name and a last name, but do
+not have an address:
+
+	/*
+	 * Locate all rows that have a first name and a last name but no address.
+	 */
+	
+	HTable table = ...
+	
+	// Create Scan objects for first name, last name, and address
+	Scan firstNamesScan = new Scan().addColumn(Bytes.toBytes("person"), Bytes.toBytes("first-name"));
+	Scan lastNamesScan = new Scan().addColumn(Bytes.toBytes("person"), Bytes.toBytes("last-name"));
+	Scan addressesScan = new Scan().addColumn(Bytes.toBytes("person"), Bytes.toBytes("address"));
+	
+	// Need a comparator for Result objects
+	Comparator<Result> rowOrder = new Comparator<Result>() {
+		@Override
+		public void compare(Result r1, Result r2) {
+			return Bytes.BYTES_COMPARATOR.compare(r1.getRow(), r2.getRow());
+		}
+	};
+	
+	// Get the ResultScanners and convert them to unchecked OrderedIterables.
+	// Unchecked is okay because ResultScanner always returns its elements in
+	// row-key order, consistent with the above comparator.
+	OrderedIterable<Result> firstNames = Scanerator.unchecked(table.getScanner(firstNamesScan), rowOrder);
+	OrderedIterable<Result> lastNames = Scanerator.unchecked(table.getScanner(lastNamesScan), rowOrder);
+	OrderedIterable<Result> addresses = Scanerator.unchecked(table.getScanner(addressesScan), rowOrder);
+	
+	// Perform the boolean operation on the OrderedIterables
+	Iterable<Result> missingAddress = firstNames.and(lastNames).not(addresses);
 
 ## Maven Repository
 **Scanerator** is not yet on maven central, so a `<repository>` element is
