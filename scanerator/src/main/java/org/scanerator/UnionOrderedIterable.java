@@ -106,4 +106,8 @@ public class UnionOrderedIterable<T> extends AbstractOrderedIterable<T> {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "(any " + lhs + " " + rhs + ")";
+	}
 }

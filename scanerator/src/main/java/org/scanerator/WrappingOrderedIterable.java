@@ -97,4 +97,8 @@ public class WrappingOrderedIterable<T> extends AbstractOrderedIterable<T> {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "(wrap " + wrapped + ")";
+	}
 }

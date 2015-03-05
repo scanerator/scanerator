@@ -126,4 +126,8 @@ public class IntersectionOrderedIterable<T> extends AbstractOrderedIterable<T> {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "(all " + lhs + " " + rhs + ")";
+	}
 }

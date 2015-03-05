@@ -110,4 +110,8 @@ public class SubtractionOrderedIterable<T> extends AbstractOrderedIterable<T> {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "(not " + lhs + " " + rhs + ")";
+	}
 }

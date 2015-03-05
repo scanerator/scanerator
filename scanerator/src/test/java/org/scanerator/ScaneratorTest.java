@@ -38,4 +38,10 @@ public class ScaneratorTest {
 	public void testNot() {
 		Assert.assertEquals(Arrays.asList(2, 4, 8, 10), list(mul2.not(mul3)));
 	}
+	
+	@Test
+	public void testStrings() {
+		OrderedIterable<Object> all = all(Arrays.asList(empty(), empty(), empty(), empty()));
+		Assert.assertEquals("(all (all (empty) (empty)) (all (empty) (empty)))", all.toString());
+	}
 }

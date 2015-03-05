@@ -21,4 +21,9 @@ public class EmptyOrderedIterable<T> extends AbstractOrderedIterable<T> {
 	public Iterator<T> iterator() {
 		return Collections.<T>emptySet().iterator();
 	}
+	
+	@Override
+	public String toString() {
+		return "(empty)";
+	}
 }

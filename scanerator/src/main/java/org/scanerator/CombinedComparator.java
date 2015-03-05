@@ -48,4 +48,9 @@ public class CombinedComparator<T> implements Comparator<T> {
 		return lc;
 	}
 	
+	@Override
+	public String toString() {
+		return "(both " + lhs + " " + rhs + ")";
+	}
+	
 }

@@ -142,4 +142,7 @@ public abstract class AbstractOrderedIterable<T> implements OrderedIterable<T> {
 	public OrderedIterable<T> dedup() {
 		return new DedupOrderedIterable<T>(this);
 	}
+	
+	@Override
+	public abstract String toString();
 }

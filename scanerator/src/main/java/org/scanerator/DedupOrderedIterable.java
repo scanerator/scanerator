@@ -100,4 +100,8 @@ public class DedupOrderedIterable<T> extends AbstractOrderedIterable<T> {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "(dedup " + wrapped + ")";
+	}
 }
