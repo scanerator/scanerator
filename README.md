@@ -19,6 +19,8 @@ scans are one example; because they are always returned ordered by row key, HBas
 scan results can be easily processed by **Scanerator** to produce
 boolean expressions composed of multiple scans.
 
+**Scanerator** has no runtime dependencies.
+
 ## Usage
 The utility class [`Scanerator`](scanerator/src/main/java/org/scanerator/Scanerator.java) can be used for most
 operations on `OrderedIterable` instances, as well as for wrapping
