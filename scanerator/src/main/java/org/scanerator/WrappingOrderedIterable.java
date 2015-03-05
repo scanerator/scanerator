@@ -9,10 +9,12 @@ import java.util.NoSuchElementException;
 public class WrappingOrderedIterable<T> extends AbstractOrderedIterable<T> {
 
 	protected Iterable<T> itr;
+	protected boolean dropDescending;
 	
-	public WrappingOrderedIterable(Iterable<T> itr, Comparator<? super T> cmp) {
+	public WrappingOrderedIterable(Iterable<T> itr, Comparator<? super T> cmp, boolean dropDescending) {
 		super(cmp);
 		this.itr = itr;
+		this.dropDescending = dropDescending;
 	}
 
 	public Iterator<T> iterator() {
@@ -39,8 +41,15 @@ public class WrappingOrderedIterable<T> extends AbstractOrderedIterable<T> {
 			if(!hasNext())
 				throw new NoSuchElementException();
 			T n = next.remove(0);
-			if(next.size() > 0 && cmp.compare(n, next.get(0)) > 0)
-				throw new IllegalStateException("Not an ascending iterator: " + itr + " found " + n + " followed by " + next.get(0));
+			if(next.size() > 0 && cmp.compare(n, next.get(0)) > 0) {
+				if(!dropDescending)
+					throw new IllegalStateException("Not an ascending iterator: " + itr + " found " + n + " followed by " + next.get(0));
+				do {
+					next.remove(0);
+					if(itr.hasNext())
+						next.add(itr.next());
+				} while(next.size() > 0 && cmp.compare(n, next.get(0)) > 0);
+			}
 			if(itr.hasNext())
 				next.add(itr.next());
 			return n;

@@ -6,12 +6,12 @@ import java.util.List;
 
 public class Scanerator {
 	
-	public static <T> OrderedIterable<T> itr(Iterable<T> itr, Comparator<? super T> cmp) {
-		return new WrappingOrderedIterable<T>(itr, cmp);
+	public static <T> OrderedIterable<T> itr(Iterable<T> itr, Comparator<? super T> cmp, boolean dropDescending) {
+		return new WrappingOrderedIterable<T>(itr, cmp, dropDescending);
 	}
 	
 	public static <T> OrderedIterable<T> itr(Iterable<T> itr) {
-		return itr(itr, Comparators.<T>naturalOrder());
+		return itr(itr, Comparators.<T>naturalOrder(), false);
 	}
 	
 	public static <T> OrderedIterable<T> all(List<OrderedIterable<T>> itrs) {
