@@ -42,6 +42,20 @@ existing `Iterable` instances.
 	// Convert back to a list
 	List<Integer> mul6 = Scanerator.list(ord6); // List contains only '6'
 
+## Maven Repository
+
+**Scanerator** is not yet on maven central, so a `<repository>` element is
+required in your `pom.xml` to depend on it.  The following snippet may
+be used:
+
+	<repository>
+		<id>robin-kirkman-nexus</id>
+		<url>http://nexus.robindps.com/nexus/content/groups/local/</url>
+		<snapshots><enabled>true</enabled></snapshots>
+		<releases><enabled>true</enabled></releases>
+	</repository>
+
+
 ## Laziness
 
 Because `OrderedIterable` always iterates over its elements in
