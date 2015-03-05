@@ -39,8 +39,31 @@ public interface OrderedIterable<T> extends Iterable<T> {
 	 * {@link OrderedIterable}
 	 * @param i
 	 * @return
+	 * @see UnionOrderedIterable
 	 */
 	public OrderedIterable<T> any(OrderedIterable<T> i);
+	
+	/**
+	 * Returns a new {@link OrderedIterable} that is the logical
+	 * "intersection" of this {@link OrderedIterable} and the
+	 * argument.  Elements of this {@link OrderedIterable} that
+	 * are duplicated in the argument will be returned once
+	 * per pair-wise duplication.
+	 * @param i
+	 * @return
+	 * @see IntersectionOrderedIterable
+	 */
 	public OrderedIterable<T> all(OrderedIterable<T> i);
+	
+	/**
+	 * Returns a new {@link OrderedIterable} that is the logical
+	 * "subtraction" of the argument from this {@link OrderedIterable}.
+	 * The returned {@link OrderedIterable} will contain only those
+	 * elements found in this {@link OrderedIterable} but not found
+	 * in the argument.
+	 * @param i
+	 * @return
+	 * @see SubtractionOrderedIterable
+	 */
 	public OrderedIterable<T> not(OrderedIterable<T> i);
 }
