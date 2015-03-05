@@ -1,4 +1,6 @@
 # Scanerator
+[<sup><sub>*Issue Tracker (JIRA)*</sub></sup>](http://jira.robindps.com/browse/SCAN/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel)
+
 Library for manipulating `Iterable` objects that iterate over their
 elements in ascending order, according to some `Comparator`.
 Provides interface [`OrderedIterable`](scanerator/src/main/java/org/scanerator/OrderedIterable.java)
