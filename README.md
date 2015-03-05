@@ -49,7 +49,7 @@ incrementally.
 
 ## OrderedIterable Interface
 
-The `OrderedIterable` interface, with comments removed, is reproduced below.
+The `OrderedIterable` interface, with comments removed, is reproduced below:
 
 	public interface OrderedIterable<T> extends Iterable<T> {
 		public Comparator<T> cmp();
@@ -59,24 +59,26 @@ The `OrderedIterable` interface, with comments removed, is reproduced below.
 		public OrderedIterable<T> dedup();
 	}
 
-### cmp()
+The methods are briefly described below:
 
-Returns the `Comparator` used by this `OrderedIterable`.
+*	`cmp()`
+	
+	Returns the `Comparator` used by this `OrderedIterable`.
 
-### or(OrderedIterable)
+*	`or(OrderedIterable)`
+	
+	Returns a new `OrderedIterable` that is the union of this `OrderedIterable` and the argument.
 
-Returns a new `OrderedIterable` that is the union of this `OrderedIterable` and the argument.
+*	`and(OrderedIterable)`
+	
+	Returns a new `OrderedIterable` that is the intersection of this `OrderedIterable` and the argument.
 
-### and(OrderedIterable)
+*	`not(OrderedIterable)`
+	
+	Returns a new `OrderedIterable` that is the subtraction of the argument from this `OrderedIterable`.
 
-Returns a new `OrderedIterable` that is the intersection of this `OrderedIterable` and the argument.
-
-### not(OrderedIterable)
-
-Returns a new `OrderedIterable` that is the subtraction of the argument from this `OrderedIterable`.
-
-### dedup()
-
-Returns a new `OrderedIterable` that de-duplicates this `OrderedIterable`, so elements
+*	`dedup()`
+	
+	Returns a new `OrderedIterable` that de-duplicates this `OrderedIterable`, so elements
 
 
