@@ -30,7 +30,7 @@ public abstract class AbstractOrderedIterable<T> implements OrderedIterable<T> {
 		/**
 		 * The {@link PriorityQueue} backing this {@link PQ}
 		 */
-		private PriorityQueue<T> items = new PriorityQueue<T>(0, cmp());
+		private PriorityQueue<T> items = new PriorityQueue<T>(1, cmp());
 		
 		/**
 		 * Create a new {@link PQ} with a specified maximum capacity
