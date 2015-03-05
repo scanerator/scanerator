@@ -1,11 +1,13 @@
 package org.scanerator;
 
 import java.util.Arrays;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 import static org.scanerator.Scanerator.*;
 
+@SuppressWarnings("unchecked")
 public class ScaneratorTest {
 	private static final OrderedIterable<Integer> mul2 = itr(Arrays.asList(2, 4, 6, 8, 10, 12));
 	private static final OrderedIterable<Integer> mul3 = itr(Arrays.asList(3, 6, 9, 12));
