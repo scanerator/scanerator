@@ -4,11 +4,10 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 /**
- * {@link OrderedIterable} that wraps an {@link Iterable} and maintains
- * the {@link OrderedIterable} ascending-order contract by checking
- * returned elements with a {@link Comparator}.  If an out-of-order
- * element is encountered it is either dropped or an {@link IllegalStateException}
- * is thrown, depending on the configuration of this {@link UncheckedOrderedIterable}.
+ * {@link OrderedIterable} that wraps an {@link Iterable} but does not
+ * do any checking to ensure that the returned elements are ordered.
+ * Use only if you are sure that the wrapped {@link Iterable} is already
+ * ordered; if not, subsequent boolean operations will behave unpredictably.
  * @author robin
  *
  * @param <T>
@@ -21,9 +20,8 @@ public class UncheckedOrderedIterable<T> extends AbstractOrderedIterable<T> {
 	protected Iterable<T> wrapped;
 	
 	/**
-	 * Create an {@link OrderedIterable} wrapping an {@link Iterable}, enforced
-	 * by a {@link Comparator}, that either drops out-of-order elements
-	 * or throws an exception, depending on {@code dropDescending}
+	 * Create an {@link OrderedIterable} wrapping an {@link Iterable},
+	 * with no enforcement of element ordering.
 	 * @param itr
 	 * @param cmp
 	 * @param dropDescending
