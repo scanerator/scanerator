@@ -1,5 +1,5 @@
 # Scanerator
-[<sup><sub>*Issue Tracker (JIRA)*</sub></sup>](http://jira.robindps.com/browse/SCAN/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel)
+[<sup><sub>Issue Tracker</sub></sup>](http://jira.robindps.com/browse/SCAN/?selectedTab=com.atlassian.jira.jira-projects-plugin:summary-panel)
 
 Library for manipulating `Iterable` objects that iterate over their
 elements in ascending order, according to some `Comparator`.
