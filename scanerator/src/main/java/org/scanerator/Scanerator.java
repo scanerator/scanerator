@@ -105,6 +105,17 @@ public class Scanerator {
 	}
 	
 	/**
+	 * Return an {@link OrderedIterable} that removes duplicate elements
+	 * returned by {@code itr}
+	 * @param itr
+	 * @return
+	 * @see DedupOrderedIterable
+	 */
+	public static <T> OrderedIterable<T> dedup(OrderedIterable<T> itr) {
+		return new DedupOrderedIterable<T>(itr);
+	}
+	
+	/**
 	 * Build a {@link List} from the contents of an {@link Iterable}
 	 * and return that {@link List}.
 	 * @param itr
