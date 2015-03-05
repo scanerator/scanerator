@@ -24,7 +24,7 @@ public class Scanerator {
 	 * @return A new {@link OrderedIterable}
 	 */
 	public static <T> OrderedIterable<T> itr(Iterable<T> itr, Comparator<? super T> cmp, boolean dropDescending) {
-		return new WrappingOrderedIterable<T>(itr, cmp, dropDescending);
+		return new CheckedOrderedIterable<T>(itr, cmp, dropDescending);
 	}
 	
 	/**

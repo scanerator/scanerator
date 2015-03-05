@@ -11,12 +11,12 @@ import java.util.NoSuchElementException;
  * the {@link OrderedIterable} ascending-order contract by checking
  * returned elements with a {@link Comparator}.  If an out-of-order
  * element is encountered it is either dropped or an {@link IllegalStateException}
- * is thrown, depending on the configuration of this {@link WrappingOrderedIterable}.
+ * is thrown, depending on the configuration of this {@link CheckedOrderedIterable}.
  * @author robin
  *
  * @param <T>
  */
-public class WrappingOrderedIterable<T> extends AbstractOrderedIterable<T> {
+public class CheckedOrderedIterable<T> extends AbstractOrderedIterable<T> {
 
 	/**
 	 * The wrapped {@link Iterable}
@@ -35,7 +35,7 @@ public class WrappingOrderedIterable<T> extends AbstractOrderedIterable<T> {
 	 * @param cmp
 	 * @param dropDescending
 	 */
-	public WrappingOrderedIterable(Iterable<T> itr, Comparator<? super T> cmp, boolean dropDescending) {
+	public CheckedOrderedIterable(Iterable<T> itr, Comparator<? super T> cmp, boolean dropDescending) {
 		super(cmp);
 		this.wrapped = itr;
 		this.dropDescending = dropDescending;
