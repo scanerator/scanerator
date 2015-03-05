@@ -13,7 +13,7 @@ import java.util.List;
 public class Scanerator {
 	
 	/**
-	 * Return an {@link OrderedIterable} that wraps the {@link Iterable} argument,
+	 * Return an {@link OrderedIterable} that wraps (and checks) the {@link Iterable} argument,
 	 * using the specified {@link Comparator}, and the specified behavior
 	 * if out-of-order elements are encountered.
 	 * @param itr The {@link Iterator} to wrap
@@ -23,21 +23,44 @@ public class Scanerator {
 	 * elements are encountered
 	 * @return A new {@link OrderedIterable}
 	 */
-	public static <T> OrderedIterable<T> itr(Iterable<T> itr, Comparator<? super T> cmp, boolean dropDescending) {
+	public static <T> OrderedIterable<T> checked(Iterable<T> itr, Comparator<? super T> cmp, boolean dropDescending) {
 		return new CheckedOrderedIterable<T>(itr, cmp, dropDescending);
 	}
 	
 	/**
-	 * Return an {@link OrderedIterable} that wraps the {@link Iterable} argument
+	 * Return an {@link OrderedIterable} that wraps (and checks) the {@link Iterable} argument
 	 * using the "natural order" {@link Comparator}, {@link Comparators#NATURAL_ORDER},
 	 * throwing an {@link IllegalStateException} if the wrapped {@link Iterable}
 	 * returns an out-of-order element.
 	 * @param itr
 	 * @return
-	 * @see #itr(Iterable, Comparator, boolean)
+	 * @see #checked(Iterable, Comparator, boolean)
 	 */
-	public static <T> OrderedIterable<T> itr(Iterable<T> itr) {
-		return itr(itr, Comparators.<T>naturalOrder(), false);
+	public static <T> OrderedIterable<T> checked(Iterable<T> itr) {
+		return checked(itr, Comparators.<T>naturalOrder(), false);
+	}
+	
+	/**
+	 * Return an {@link OrderedIterable} that wraps but does not check the
+	 * {@link Iterable} argument.  The {@link Comparator} argument is still
+	 * required for use during later boolean operations.
+	 * @param itr
+	 * @param cmp
+	 * @return
+	 */
+	public static <T> OrderedIterable<T> unchecked(Iterable<T> itr, Comparator<? super T> cmp) {
+		return new UncheckedOrderedIterable<T>(itr, cmp);
+	}
+	
+	/**
+	 * Return an {@link OrderedIterable} that wraps but does not check the
+	 * {@link Iterable} argument.  Uses {@link Comparators#naturalOrder()} as
+	 * the {@link Comparator} for use during later boolean operations.
+	 * @param itr
+	 * @return
+	 */
+	public static <T> OrderedIterable<T> unchecked(Iterable<T> itr) {
+		return unchecked(itr, Comparators.naturalOrder());
 	}
 	
 	/**

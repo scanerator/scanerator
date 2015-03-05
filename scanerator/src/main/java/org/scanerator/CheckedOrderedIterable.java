@@ -99,6 +99,6 @@ public class CheckedOrderedIterable<T> extends AbstractOrderedIterable<T> {
 
 	@Override
 	public String toString() {
-		return "(wrap " + wrapped + ")";
+		return "(checked " + wrapped + ")";
 	}
 }
