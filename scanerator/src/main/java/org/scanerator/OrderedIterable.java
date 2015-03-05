@@ -67,5 +67,11 @@ public interface OrderedIterable<T> extends Iterable<T> {
 	 */
 	public OrderedIterable<T> not(OrderedIterable<T> i);
 	
+	/**
+	 * Returns a new {@link OrderedIterable} that wraps this
+	 * {@link OrderedIterable} but removes duplicate elements
+	 * when iterating.
+	 * @return
+	 */
 	public OrderedIterable<T> dedup();
 }
