@@ -22,8 +22,8 @@ public class SubtractionOrderedIterable<T> extends AbstractOrderedIterable<T> {
 		protected Iterator<T> litr = lhs.iterator();
 		protected Iterator<T> ritr = rhs.iterator();
 
-		protected Box lnext = new Box(1);
-		protected Box rnext = new Box(1);
+		protected PQ lnext = new PQ(1);
+		protected PQ rnext = new PQ(1);
 		
 		protected void pull() {
 			while(!lnext.isEmpty() && !rnext.isEmpty()) {
@@ -31,22 +31,22 @@ public class SubtractionOrderedIterable<T> extends AbstractOrderedIterable<T> {
 				if(c < 0)
 					return;
 				else if(c == 0) {
-					lnext.remove();
+					lnext.poll();
 					if(litr.hasNext())
-						lnext.add(litr.next());
+						lnext.offer(litr.next());
 				} else {
-					rnext.remove();
+					rnext.poll();
 					if(ritr.hasNext())
-						rnext.add(ritr.next());
+						rnext.offer(ritr.next());
 				}
 			}
 		}
 		
 		public Itr() {
 			if(litr.hasNext())
-				lnext.add(litr.next());
+				lnext.offer(litr.next());
 			if(ritr.hasNext())
-				rnext.add(ritr.next());
+				rnext.offer(ritr.next());
 		}
 
 		public boolean hasNext() {
@@ -57,9 +57,9 @@ public class SubtractionOrderedIterable<T> extends AbstractOrderedIterable<T> {
 		public T next() {
 			if(!hasNext())
 				throw new NoSuchElementException();
-			T next = lnext.remove();
+			T next = lnext.poll();
 			if(litr.hasNext())
-				lnext.add(litr.next());
+				lnext.offer(litr.next());
 			return next;
 		}
 	
