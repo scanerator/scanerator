@@ -13,6 +13,13 @@ on ordered `Iterable`s.
 		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
 
+**Scanerator** is especially useful for "Big Data" applications where
+the result of a query will not fit in available memory, provided the
+results are returned in a consistent ordering.  [HBase](http://hbase.apache.org/) 
+scans are one example; because they are always returned ordered by row key, HBase
+scan results can be easily processed by **Scanerator** to produce
+boolean expressions composed of multiple scans.
+
 ## Usage
 
 The utility class [`Scanerator`](scanerator/src/main/java/org/scanerator/Scanerator.java) can be used for most
@@ -42,9 +49,9 @@ ascending order, boolean operations can be performed on `OrderedIterable`
 instances in a lazy manner, e.g. without having to load the
 entire list of elements into memory.  This makes `OrderedIterable`
 especially useful for "Big Data" applications, such as processing
-results returned by HBase scans, which return rows in ascending
-order by row-key.  Data can be processed using boolean expressions
-implemented using **Scanerator** and sent back to the client
+results returned by [HBase](http://hbase.apache.org/) scans, which 
+return rows in ascending order by row-key.  Data can be processed using
+boolean expressions implemented using **Scanerator** and sent back to the client
 incrementally.
 
 ## OrderedIterable Interface
