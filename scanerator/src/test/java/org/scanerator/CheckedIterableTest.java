@@ -7,21 +7,21 @@ import org.junit.Test;
 
 import static org.scanerator.Scanerator.*;
 
-public class CheckedOrderedIterableTest {
+public class CheckedIterableTest {
 	@Test
 	public void testDropDescending() {
-		OrderedIterable<Integer> mul2 = new CheckedOrderedIterable<Integer>(
-				Arrays.asList(2, 4, 0, 6, 8),
+		Iterable<Integer> mul2 = new CheckedIterable<Integer>(
 				Comparators.naturalOrder(),
+				Arrays.asList(2, 4, 0, 6, 8),
 				true);
 		Assert.assertEquals(Arrays.asList(2, 4, 6, 8), list(mul2));
 	}
 	
 	@Test
 	public void testFailDescending() {
-		OrderedIterable<Integer> mul2 = new CheckedOrderedIterable<Integer>(
-				Arrays.asList(2, 4, 0, 6, 8),
+		Iterable<Integer> mul2 = new CheckedIterable<Integer>(
 				Comparators.naturalOrder(),
+				Arrays.asList(2, 4, 0, 6, 8),
 				false);
 		try {
 			list(mul2);

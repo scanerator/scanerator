@@ -4,13 +4,13 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
- * Base implementation of {@link OrderedIterable}.  Extensions of this
+ * Base implementation of {@link Iterable}.  Extensions of this
  * class must supply the {@link #iterator()} method.
  * @author robin
  *
  * @param <T>
  */
-public abstract class AbstractOrderedIterable<T> implements OrderedIterable<T> {
+public abstract class AbstractIterable<T> implements Iterable<T> {
 
 	/**
 	 * Simple wrapper around {@link PriorityQueue} that enforces
@@ -110,37 +110,21 @@ public abstract class AbstractOrderedIterable<T> implements OrderedIterable<T> {
 	}
 	
 	/**
-	 * The {@link Comparator} for this {@link OrderedIterable}
+	 * The {@link Comparator} for this {@link Iterable}
 	 */
-	protected Comparator<T> cmp;
+	protected Comparator<? super T> cmp;
 	
 	/**
-	 * Create an {@link AbstractOrderedIterable} given a {@link Comparator}.
+	 * Create an {@link AbstractIterable} given a {@link Comparator}.
 	 * @param cmp
 	 */
 	@SuppressWarnings("unchecked")
-	public AbstractOrderedIterable(Comparator<? super T> cmp) {
-		this.cmp = (Comparator<T>) cmp;
+	public AbstractIterable(Comparator<? super T> cmp) {
+		this.cmp = cmp;
 	}
 	
-	public Comparator<T> cmp() {
+	protected Comparator<? super T> cmp() {
 		return cmp;
-	}
-	
-	public OrderedIterable<T> and(OrderedIterable<T> i) {
-		return new IntersectionOrderedIterable<T>(this, i);
-	}
-	
-	public OrderedIterable<T> or(OrderedIterable<T> i) {
-		return new UnionOrderedIterable<T>(this, i);
-	}
-	
-	public OrderedIterable<T> not(OrderedIterable<T> i) {
-		return new SubtractionOrderedIterable<T>(this, i);
-	}
-	
-	public OrderedIterable<T> dedup() {
-		return new DedupOrderedIterable<T>(this);
 	}
 	
 	@Override

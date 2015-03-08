@@ -1,36 +1,41 @@
 package org.scanerator;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * {@link OrderedIterable} that is the logical subtraction
- * of the left-hand side from the right-hand side; this {@link OrderedIterable}
+ * {@link Iterable} that is the logical subtraction
+ * of the left-hand side from the right-hand side; this {@link Iterable}
  * contains all elements of the left-hand side that are not
  * contained in the right-hand side.
  * @author robin
  *
  * @param <T>
  */
-public class SubtractionOrderedIterable<T> extends AbstractOrderedIterable<T> {
+public class SubtractionIterable<T> extends AbstractIterable<T> {
 
 	/**
-	 * The left-hand side {@link OrderedIterable}
+	 * The left-hand side {@link Iterable}
 	 */
-	protected OrderedIterable<T> lhs;
+	protected Iterable<T> lhs;
 	/**
-	 * The right-hand side {@link OrderedIterable}
+	 * The right-hand side {@link Iterable}
 	 */
-	protected OrderedIterable<T> rhs;
+	protected Iterable<T> rhs;
+	
+	public SubtractionIterable(Iterable<T> lhs, Iterable<T> rhs) {
+		this(Comparators.naturalOrder(), lhs, rhs);
+	}
 	
 	/**
-	 * Create an {@link OrderedIterable} that is the logical subtraction
+	 * Create an {@link Iterable} that is the logical subtraction
 	 * of {@code lhs} from {@code rhs}.
 	 * @param lhs
 	 * @param rhs
 	 */
-	public SubtractionOrderedIterable(OrderedIterable<T> lhs, OrderedIterable<T> rhs) {
-		super(Comparators.combine(lhs.cmp(), rhs.cmp()));
+	public SubtractionIterable(Comparator<? super T> cmp, Iterable<T> lhs, Iterable<T> rhs) {
+		super(cmp);
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}

@@ -5,36 +5,31 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * {@link OrderedIterable} that removes duplicates from
- * a wrapped {@link OrderedIterable}.
+ * {@link Iterable} that removes duplicates from
+ * a wrapped {@link Iterable}.
  * @author robin
  *
  * @param <T>
  */
-public class DedupOrderedIterable<T> extends AbstractOrderedIterable<T> {
+public class DedupIterable<T> extends AbstractIterable<T> {
 
 	/**
-	 * The wrapped {@link OrderedIterable}
+	 * The wrapped {@link Iterable}
 	 */
-	protected OrderedIterable<T> wrapped;
+	protected Iterable<T> wrapped;
 
-	/**
-	 * Create an {@link OrderedIterable} that removes duplicate elements
-	 * according to the argument's {@link OrderedIterable#cmp()}
-	 * @param wrapped
-	 */
-	public DedupOrderedIterable(OrderedIterable<T> wrapped) {
-		this(wrapped, wrapped.cmp());
+	public DedupIterable(Iterable<T> wrapped) {
+		this(Comparators.naturalOrder(), wrapped);
 	}
 	
 	/**
-	 * Create an {@link OrderedIterable} that removes duplicate elements
-	 * from the wrapped {@link OrderedIterable}, comparing according
+	 * Create an {@link Iterable} that removes duplicate elements
+	 * from the wrapped {@link Iterable}, comparing according
 	 * to the argument {@link Comparator}
 	 * @param wrapped
 	 * @param cmp
 	 */
-	public DedupOrderedIterable(OrderedIterable<T> wrapped, Comparator<? super T> cmp) {
+	public DedupIterable(Comparator<? super T> cmp, Iterable<T> wrapped) {
 		super(cmp);
 		this.wrapped = wrapped;
 	}

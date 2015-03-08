@@ -9,9 +9,9 @@ import static org.scanerator.Scanerator.*;
 
 @SuppressWarnings("unchecked")
 public class ScaneratorTest {
-	private static final OrderedIterable<Integer> mul2 = checked(Arrays.asList(2, 4, 6, 8, 10, 12, 14));
-	private static final OrderedIterable<Integer> mul3 = checked(Arrays.asList(3, 6, 9, 12, 15));
-	private static final OrderedIterable<Integer> mul4 = checked(Arrays.asList(4, 8, 12));
+	private static final Iterable<Integer> mul2 = checked(Arrays.asList(2, 4, 6, 8, 10, 12, 14));
+	private static final Iterable<Integer> mul3 = checked(Arrays.asList(3, 6, 9, 12, 15));
+	private static final Iterable<Integer> mul4 = checked(Arrays.asList(4, 8, 12));
 
 	@Test
 	public void testChecked() {
@@ -39,12 +39,12 @@ public class ScaneratorTest {
 	
 	@Test
 	public void testNot() {
-		Assert.assertEquals(Arrays.asList(2, 4, 8, 10, 14), list(mul2.not(mul3)));
+		Assert.assertEquals(Arrays.asList(2, 4, 8, 10, 14), list(not(mul2, mul3)));
 	}
 	
 	@Test
 	public void testStrings() {
-		OrderedIterable<Object> all = all(Arrays.asList(empty(), empty(), empty(), empty()));
+		Iterable<Object> all = all(Arrays.asList(empty(), empty(), empty(), empty()));
 		Assert.assertEquals("(all (all (empty) (empty)) (all (empty) (empty)))", all.toString());
 	}
 }

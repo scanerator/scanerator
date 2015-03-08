@@ -7,16 +7,16 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * {@link OrderedIterable} that wraps an {@link Iterable} and maintains
- * the {@link OrderedIterable} ascending-order contract by checking
+ * {@link Iterable} that wraps an {@link Iterable} and maintains
+ * the {@link Iterable} ascending-order contract by checking
  * returned elements with a {@link Comparator}.  If an out-of-order
  * element is encountered it is either dropped or an {@link IllegalStateException}
- * is thrown, depending on the configuration of this {@link CheckedOrderedIterable}.
+ * is thrown, depending on the configuration of this {@link CheckedIterable}.
  * @author robin
  *
  * @param <T>
  */
-public class CheckedOrderedIterable<T> extends AbstractOrderedIterable<T> {
+public class CheckedIterable<T> extends AbstractIterable<T> {
 
 	/**
 	 * The wrapped {@link Iterable}
@@ -27,15 +27,19 @@ public class CheckedOrderedIterable<T> extends AbstractOrderedIterable<T> {
 	 */
 	protected boolean dropDescending;
 	
+	public CheckedIterable(Iterable<T> itr, boolean dropDescending) {
+		this(Comparators.naturalOrder(), itr, dropDescending);
+	}
+	
 	/**
-	 * Create an {@link OrderedIterable} wrapping an {@link Iterable}, enforced
+	 * Create an {@link Iterable} wrapping an {@link Iterable}, enforced
 	 * by a {@link Comparator}, that either drops out-of-order elements
 	 * or throws an exception, depending on {@code dropDescending}
 	 * @param itr
 	 * @param cmp
 	 * @param dropDescending
 	 */
-	public CheckedOrderedIterable(Iterable<T> itr, Comparator<? super T> cmp, boolean dropDescending) {
+	public CheckedIterable(Comparator<? super T> cmp, Iterable<T> itr, boolean dropDescending) {
 		super(cmp);
 		this.wrapped = itr;
 		this.dropDescending = dropDescending;

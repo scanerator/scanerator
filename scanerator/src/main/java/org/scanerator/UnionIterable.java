@@ -1,36 +1,41 @@
 package org.scanerator;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * {@link OrderedIterable} that is the logical union of
+ * {@link Iterable} that is the logical union of
  * the left-hand side and the right-hand side.  Elements
  * duplicated in lhs and rhs will be duplicated in this
- * {@link OrderedIterable}.
+ * {@link Iterable}.
  * @author robin
  *
  * @param <T>
  */
-public class UnionOrderedIterable<T> extends AbstractOrderedIterable<T> {
+public class UnionIterable<T> extends AbstractIterable<T> {
 
 	/**
 	 * The left-hand side of the union
 	 */
-	protected OrderedIterable<T> lhs;
+	protected Iterable<T> lhs;
 	/**
 	 * The right-hand side of the union
 	 */
-	protected OrderedIterable<T> rhs;
+	protected Iterable<T> rhs;
+	
+	public UnionIterable(Iterable<T> lhs, Iterable<T> rhs) {
+		this(Comparators.naturalOrder(), lhs, rhs);
+	}
 	
 	/**
-	 * Create a new {@link OrderedIterable} that is the logical union
+	 * Create a new {@link Iterable} that is the logical union
 	 * of {@code lhs} and {@code rhs}
 	 * @param lhs
 	 * @param rhs
 	 */
-	public UnionOrderedIterable(OrderedIterable<T> lhs, OrderedIterable<T> rhs) {
-		super(Comparators.combine(lhs.cmp(), rhs.cmp()));
+	public UnionIterable(Comparator<? super T> cmp, Iterable<T> lhs, Iterable<T> rhs) {
+		super(cmp);
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}

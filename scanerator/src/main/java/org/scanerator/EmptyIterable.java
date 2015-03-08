@@ -4,17 +4,17 @@ import java.util.Collections;
 import java.util.Iterator;
 
 /**
- * {@link OrderedIterable} that returns an empty {@link Iterator} from {@link #iterator()}
+ * {@link Iterable} that returns an empty {@link Iterator} from {@link #iterator()}
  * @author robin
  *
  * @param <T>
  */
-public class EmptyOrderedIterable<T> extends AbstractOrderedIterable<T> {
+public class EmptyIterable<T> extends AbstractIterable<T> {
 
 	/**
-	 * Create an empty {@link OrderedIterable}
+	 * Create an empty {@link Iterable}
 	 */
-	public EmptyOrderedIterable() {
+	public EmptyIterable() {
 		super(null);
 	}
 

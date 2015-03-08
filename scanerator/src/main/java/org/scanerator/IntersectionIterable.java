@@ -5,10 +5,10 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * {@link OrderedIterable} consisting of the intersection of elements
- * of two other {@link OrderedIterable}s.  If elements are duplicated
- * in the left- or right-hand {@link OrderedIterable}s then this 
- * {@link OrderedIterable} will return one of the duplicate object
+ * {@link Iterable} consisting of the intersection of elements
+ * of two other {@link Iterable}s.  If elements are duplicated
+ * in the left- or right-hand {@link Iterable}s then this 
+ * {@link Iterable} will return one of the duplicate object
  * for each pair-wise duplication.  Equality is determined by
  * the {@link Comparator} returned by {@link #cmp()}, not by
  * calling {@link Object#equals(Object)}.
@@ -16,25 +16,29 @@ import java.util.NoSuchElementException;
  *
  * @param <T>
  */
-public class IntersectionOrderedIterable<T> extends AbstractOrderedIterable<T> {
+public class IntersectionIterable<T> extends AbstractIterable<T> {
 
 	/**
 	 * The left-hand side of the intersection
 	 */
-	protected OrderedIterable<T> lhs;
+	protected Iterable<T> lhs;
 	/**
 	 * The right-hand side of the intersection
 	 */
-	protected OrderedIterable<T> rhs;
+	protected Iterable<T> rhs;
+	
+	public IntersectionIterable(Iterable<T> lhs, Iterable<T> rhs) {
+		this(Comparators.naturalOrder(), lhs, rhs);
+	}
 	
 	/**
-	 * Create a new {@link IntersectionOrderedIterable}, which returns elements
+	 * Create a new {@link IntersectionIterable}, which returns elements
 	 * that are the intersection of those found in {@code lhs} and {@code rhs}
 	 * @param lhs
 	 * @param rhs
 	 */
-	public IntersectionOrderedIterable(OrderedIterable<T> lhs, OrderedIterable<T> rhs) {
-		super(Comparators.combine(lhs.cmp(), rhs.cmp()));
+	public IntersectionIterable(Comparator<? super T> cmp, Iterable<T> lhs, Iterable<T> rhs) {
+		super(cmp);
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}

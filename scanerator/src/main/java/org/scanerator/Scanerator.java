@@ -6,14 +6,14 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Utility class for dealing with {@link OrderedIterable}s
+ * Utility class for dealing with {@link Iterable}s
  * @author robin
  *
  */
 public class Scanerator {
 	
 	/**
-	 * Return an {@link OrderedIterable} that wraps (and checks) the {@link Iterable} argument,
+	 * Return an {@link Iterable} that wraps (and checks) the {@link Iterable} argument,
 	 * using the specified {@link Comparator}, and the specified behavior
 	 * if out-of-order elements are encountered.
 	 * @param itr The {@link Iterator} to wrap
@@ -21,14 +21,14 @@ public class Scanerator {
 	 * @param dropDescending {@code true} to silently drop out-of-order elements.
 	 * {@code false} to throw an {@link IllegalStateException} when out-of-order
 	 * elements are encountered
-	 * @return A new {@link OrderedIterable}
+	 * @return A new {@link Iterable}
 	 */
-	public static <T> OrderedIterable<T> checked(Iterable<T> itr, Comparator<? super T> cmp, boolean dropDescending) {
-		return new CheckedOrderedIterable<T>(itr, cmp, dropDescending);
+	public static <T> Iterable<T> checked(Comparator<? super T> cmp, Iterable<T> itr, boolean dropDescending) {
+		return new CheckedIterable<T>(cmp, itr, dropDescending);
 	}
 	
 	/**
-	 * Return an {@link OrderedIterable} that wraps (and checks) the {@link Iterable} argument
+	 * Return an {@link Iterable} that wraps (and checks) the {@link Iterable} argument
 	 * using the "natural order" {@link Comparator}, {@link Comparators#NATURAL_ORDER},
 	 * throwing an {@link IllegalStateException} if the wrapped {@link Iterable}
 	 * returns an out-of-order element.
@@ -36,141 +36,101 @@ public class Scanerator {
 	 * @return
 	 * @see #checked(Iterable, Comparator, boolean)
 	 */
-	public static <T> OrderedIterable<T> checked(Iterable<T> itr) {
-		return checked(itr, Comparators.<T>naturalOrder(), false);
+	public static <T> Iterable<T> checked(Iterable<T> itr) {
+		return checked(Comparators.<T>naturalOrder(), itr, false);
 	}
 	
 	/**
-	 * Return an {@link OrderedIterable} that wraps but does not check the
-	 * {@link Iterable} argument.  The {@link Comparator} argument is still
-	 * required for use during later boolean operations.
-	 * @param itr
-	 * @param cmp
+	 * Return an {@link Iterable} that has no elements
 	 * @return
 	 */
-	public static <T> OrderedIterable<T> unchecked(Iterable<T> itr, Comparator<? super T> cmp) {
-		return new UncheckedOrderedIterable<T>(itr, cmp);
+	public static <T> Iterable<T> empty() {
+		return new EmptyIterable<T>();
+	}
+	
+	public static <T> Iterable<T> all(Iterable<Iterable<T>> itrs) {
+		return all(Comparators.naturalOrder(), itrs);
 	}
 	
 	/**
-	 * Return an {@link OrderedIterable} that wraps but does not check the
-	 * {@link Iterable} argument.  Uses {@link Comparators#naturalOrder()} as
-	 * the {@link Comparator} for use during later boolean operations.
-	 * @param itr
-	 * @return
-	 */
-	public static <T> OrderedIterable<T> unchecked(Iterable<T> itr) {
-		return unchecked(itr, Comparators.naturalOrder());
-	}
-	
-	/**
-	 * Return an {@link OrderedIterable} that has no elements
-	 * @return
-	 */
-	public static <T> OrderedIterable<T> empty() {
-		return new EmptyOrderedIterable<T>();
-	}
-	
-	/**
-	 * Return an {@link OrderedIterable} that is the logical intersection
-	 * of all {@link OrderedIterable}s in the argument {@code itrs}.  If {@code itrs}
-	 * is empty, returns an empty {@link OrderedIterable}.  Otherwise, construct
-	 * a binary tree of {@link IntersectionOrderedIterable} from the
+	 * Return an {@link Iterable} that is the logical intersection
+	 * of all {@link Iterable}s in the argument {@code itrs}.  If {@code itrs}
+	 * is empty, returns an empty {@link Iterable}.  Otherwise, construct
+	 * a binary tree of {@link IntersectionIterable} from the
 	 * elements of {@code itrs} and return that.
 	 * @param itrs
 	 * @return
-	 * @see IntersectionOrderedIterable
+	 * @see IntersectionIterable
 	 */
-	public static <T> OrderedIterable<T> all(Iterable<OrderedIterable<T>> itrs) {
-		List<OrderedIterable<T>> list = list(itrs);
+	public static <T> Iterable<T> all(Comparator<? super T> cmp, Iterable<Iterable<T>> itrs) {
+		List<Iterable<T>> list = list(itrs);
 		if(list.size() == 0) // edge case, no elements
-			return new EmptyOrderedIterable<T>();
-		if(list.size() == 1) // base case, return the only OrderedIterable
+			return new EmptyIterable<T>();
+		if(list.size() == 1) // base case, return the only Iterable
 			return list.get(0);
 		// divide and conquer
-		List<OrderedIterable<T>> left = list.subList(0, list.size() / 2);
-		List<OrderedIterable<T>> right = list.subList(list.size() / 2, list.size());
+		List<Iterable<T>> left = list.subList(0, list.size() / 2);
+		List<Iterable<T>> right = list.subList(list.size() / 2, list.size());
 		// return intersection of all(left) and all(right)
-		return new IntersectionOrderedIterable<T>(all(left), all(right));
+		return new IntersectionIterable<T>(cmp, all(cmp, left), all(cmp, right));
 	}
 	
-	public static <T> OrderedIterable<T> checkedAll(Iterable<Iterable<T>> itrs, Comparator<? super T> cmp, boolean dropDescending) {
-		List<OrderedIterable<T>> list = new ArrayList<OrderedIterable<T>>();
-		for(Iterable<T> itr : itrs) {
-			list.add(checked(itr, cmp, dropDescending));	
-		}
-		return all(list);
-	}
-	
-	public static <T> OrderedIterable<T> uncheckedAll(Iterable<Iterable<T>> itrs, Comparator<? super T> cmp) {
-		List<OrderedIterable<T>> list = new ArrayList<OrderedIterable<T>>();
-		for(Iterable<T> itr : itrs) {
-			list.add(unchecked(itr, cmp));	
-		}
-		return all(list);
+	public static <T> Iterable<T> any(Iterable<Iterable<T>> itrs) {
+		return any(Comparators.naturalOrder(), itrs);
 	}
 	
 	/**
-	 * Return an {@link OrderedIterable} that is the logical union
-	 * of all {@link OrderedIterable}s in the argument {@code itrs}.  If
-	 * {@code itrs} is empty, returns an empty {@link OrderedIterable}.
-	 * Otherwise, construct a binary tree of {@link UnionOrderedIterable} from
+	 * Return an {@link Iterable} that is the logical union
+	 * of all {@link Iterable}s in the argument {@code itrs}.  If
+	 * {@code itrs} is empty, returns an empty {@link Iterable}.
+	 * Otherwise, construct a binary tree of {@link UnionIterable} from
 	 * the elements of {@code itrs} and return that.
 	 * @param itrs
 	 * @return
-	 * @see UnionOrderedIterable
+	 * @see UnionIterable
 	 */
-	public static <T> OrderedIterable<T> any(Iterable<OrderedIterable<T>> itrs) {
-		List<OrderedIterable<T>> list = list(itrs);
+	public static <T> Iterable<T> any(Comparator<? super T> cmp, Iterable<Iterable<T>> itrs) {
+		List<Iterable<T>> list = list(itrs);
 		if(list.size() == 0) // edge case, no elements
-			return new EmptyOrderedIterable<T>();
-		if(list.size() == 1) // base case, return the only OrderedIterable
+			return new EmptyIterable<T>();
+		if(list.size() == 1) // base case, return the only Iterable
 			return list.get(0);
 		// divide an conquery
-		List<OrderedIterable<T>> left = list.subList(0, list.size() / 2);
-		List<OrderedIterable<T>> right = list.subList(list.size() / 2, list.size());
+		List<Iterable<T>> left = list.subList(0, list.size() / 2);
+		List<Iterable<T>> right = list.subList(list.size() / 2, list.size());
 		// return union of any(left) and any(right)
-		return new UnionOrderedIterable<T>(any(left), any(right));
+		return new UnionIterable<T>(cmp, any(cmp, left), any(cmp, right));
+	}
+	
+	public static <T> Iterable<T> not(Iterable<T> lhs, Iterable<T> rhs) {
+		return not(Comparators.naturalOrder(), lhs, rhs);
 	}
 
-	public static <T> OrderedIterable<T> checkedAny(Iterable<Iterable<T>> itrs, Comparator<? super T> cmp, boolean dropDescending) {
-		List<OrderedIterable<T>> list = new ArrayList<OrderedIterable<T>>();
-		for(Iterable<T> itr : itrs) {
-			list.add(checked(itr, cmp, dropDescending));	
-		}
-		return any(list);
-	}
-	
-	public static <T> OrderedIterable<T> uncheckedAny(Iterable<Iterable<T>> itrs, Comparator<? super T> cmp) {
-		List<OrderedIterable<T>> list = new ArrayList<OrderedIterable<T>>();
-		for(Iterable<T> itr : itrs) {
-			list.add(unchecked(itr, cmp));	
-		}
-		return any(list);
-	}
-	
-	
 	/**
-	 * Return an {@link OrderedIterable} that is the logical
+	 * Return an {@link Iterable} that is the logical
 	 * subtraction of {@code rhs} from {@code lhs}.
 	 * @param lhs
 	 * @param rhs
 	 * @return
-	 * @see SubtractionOrderedIterable
+	 * @see SubtractionIterable
 	 */
-	public static <T> OrderedIterable<T> not(OrderedIterable<T> lhs, OrderedIterable<T> rhs) {
-		return new SubtractionOrderedIterable<T>(lhs, rhs);
+	public static <T> Iterable<T> not(Comparator<? super T> cmp, Iterable<T> lhs, Iterable<T> rhs) {
+		return new SubtractionIterable<T>(cmp, lhs, rhs);
+	}
+	
+	public static <T> Iterable<T> dedup(Iterable<T> itr) {
+		return dedup(Comparators.naturalOrder(), itr);
 	}
 	
 	/**
-	 * Return an {@link OrderedIterable} that removes duplicate elements
+	 * Return an {@link Iterable} that removes duplicate elements
 	 * returned by {@code itr}
 	 * @param itr
 	 * @return
-	 * @see DedupOrderedIterable
+	 * @see DedupIterable
 	 */
-	public static <T> OrderedIterable<T> dedup(OrderedIterable<T> itr) {
-		return new DedupOrderedIterable<T>(itr);
+	public static <T> Iterable<T> dedup(Comparator<? super T> cmp, Iterable<T> itr) {
+		return new DedupIterable<T>(cmp, itr);
 	}
 	
 	/**

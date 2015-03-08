@@ -7,12 +7,12 @@ import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class DedupOrderedIterableTest {
+public class DedupIterableTest {
 	@Test
 	public void testDuplicates() {
-		OrderedIterable<Integer> mul2 = checked(Arrays.asList(2, 2, 4, 4, 6, 8, 10, 10, 10));
+		Iterable<Integer> mul2 = checked(Arrays.asList(2, 2, 4, 4, 6, 8, 10, 10, 10));
 		Assert.assertEquals(
 				Arrays.asList(2, 4, 6, 8, 10),
-				list(new DedupOrderedIterable<Integer>(mul2)));
+				list(new DedupIterable<Integer>(mul2)));
 	}
 }

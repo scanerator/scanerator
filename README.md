@@ -3,8 +3,7 @@
 # Scanerator
 Library for manipulating `Iterable` objects that iterate over their
 elements in ascending order, according to some `Comparator`.
-Provides interface [`OrderedIterable`](scanerator/src/main/java/org/scanerator/OrderedIterable.java)
-to be implemented by these ascending-order `Iterable`s, as well as utility functions and
+Provides utility functions and
 class implementations of common operations which can be performed
 on ordered `Iterable`s.
 
@@ -25,7 +24,7 @@ boolean expressions composed of multiple scans.
 
 ## Usage
 The utility class [`Scanerator`](scanerator/src/main/java/org/scanerator/Scanerator.java) can be used for most
-operations on `OrderedIterable` instances, as well as for wrapping
+operations on `Iterable` instances, as well as for wrapping
 existing `Iterable` instances.
 
 Basic Usage:
@@ -33,15 +32,8 @@ Basic Usage:
 	List<Integer> mul2 = Arrays.asList(2, 4, 6, 8, 10);
 	List<Integer> mul3 = Arrays.asList(3, 6, 9);
 	
-	// Create OrderedIterable's from the Iterable's
-	OrderedIterable<Integer> ord2 = Scanerator.itr(mul2);
-	OrderedIterable<Integer> ord3 = Scanerator.itr(mul3);
-	
-	// Get an OrderedIterable that is the intersection of ord2 and ord3
-	OrderedIterable<Integer> ord6 = Scanerator.all(Arrays.asList(ord2, ord3));
-	
-	// Equivalent to...
-	ord6 = ord2.and(ord3);
+	// Get an Iterable that is the intersection of mul2 and mul3
+	Iterable<Integer> ord6 = Scanerator.all(Arrays.asList(ord2, ord3));
 	
 	// Convert back to a list
 	List<Integer> mul6 = Scanerator.list(ord6); // List contains only '6'
@@ -54,7 +46,7 @@ not have an address:
 	 * Locate all rows that have a first name and a last name but no address.
 	 */
 	
-	HTable table = ...
+	HTable table = ...;
 	
 	// Create Scan objects for first name, last name, and address
 	Scan firstNamesScan = new Scan().addColumn(Bytes.toBytes("person"), Bytes.toBytes("first-name"));
@@ -72,12 +64,13 @@ not have an address:
 	// Get the ResultScanners and convert them to unchecked OrderedIterables.
 	// Unchecked is okay because ResultScanner always returns its elements in
 	// row-key order, consistent with the above comparator.
-	OrderedIterable<Result> firstNames = Scanerator.unchecked(table.getScanner(firstNamesScan), rowOrder);
-	OrderedIterable<Result> lastNames = Scanerator.unchecked(table.getScanner(lastNamesScan), rowOrder);
-	OrderedIterable<Result> addresses = Scanerator.unchecked(table.getScanner(addressesScan), rowOrder);
+	Iterable<Result> firstNames = table.getScanner(firstNamesScan);
+	Iterable<Result> lastNames = table.getScanner(lastNamesScan);
+	Iterable<Result> addresses = table.getScanner(addressesScan;
 	
 	// Perform the boolean operation on the OrderedIterables
-	Iterable<Result> missingAddress = firstNames.and(lastNames).not(addresses);
+	Iterable<Result> named = Scanerator.all(rowOrder, Arrays.asList(firstNames, lastNames));
+	Iterable<Result> missingAddress = Scanerator.not(rowOrder, named, addresses);
 
 ## Maven Repository
 **Scanerator** is not yet on maven central, so a `<repository>` element is
@@ -94,54 +87,15 @@ Best practices for Maven are to include `<repository>` elements as profiles
 in your local `settings.xml`, and **not** to include them in your `pom.xml`.
 
 ## Laziness
-Because `OrderedIterable` always iterates over its elements in
-ascending order, boolean operations can be performed on `OrderedIterable`
+Because an ordered `Iterable` always iterates over its elements in
+ascending order, boolean operations can be performed on these
 instances in a lazy manner, e.g. without having to load the
-entire list of elements into memory.  This makes `OrderedIterable`
+entire list of elements into memory.  This makes ordered `Iterable`s
 especially useful for "Big Data" applications, such as processing
 results returned by [HBase](http://hbase.apache.org/) scans, which 
 return rows in ascending order by row-key.  Data can be processed using
 boolean expressions implemented using **Scanerator** and sent back to the client
 incrementally.
-
-## OrderedIterable Interface
-The [`OrderedIterable`](scanerator/src/main/java/org/scanerator/OrderedIterable.java) 
-interface, with comments removed, is reproduced below:
-
-	public interface OrderedIterable<T> extends Iterable<T> {
-		public Comparator<T> cmp();
-		public OrderedIterable<T> or(OrderedIterable<T> i);
-		public OrderedIterable<T> and(OrderedIterable<T> i);
-		public OrderedIterable<T> not(OrderedIterable<T> i);
-		public OrderedIterable<T> dedup();
-	}
-
-The methods are briefly described below:
-
-*	`cmp()`
-	
-	Returns the `Comparator` used by this `OrderedIterable`.
-
-
-*	`or(OrderedIterable)`
-	
-	Returns a new `OrderedIterable` that is the union of this `OrderedIterable` and the argument.
-
-
-*	`and(OrderedIterable)`
-	
-	Returns a new `OrderedIterable` that is the intersection of this `OrderedIterable` and the argument.
-
-
-*	`not(OrderedIterable)`
-	
-	Returns a new `OrderedIterable` that is the subtraction of the argument from this `OrderedIterable`.
-
-
-*	`dedup()`
-	
-	Returns a new `OrderedIterable` that de-duplicates this `OrderedIterable`, so equal elements
-	are returned only once.
 
 ## Development
 **Scanerator** is developed on an open-source-licensed [Atlassian](https://www.atlassian.com/)
