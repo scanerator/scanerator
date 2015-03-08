@@ -94,6 +94,22 @@ public class Scanerator {
 		return new IntersectionOrderedIterable<T>(all(left), all(right));
 	}
 	
+	public static <T> OrderedIterable<T> checkedAll(Iterable<Iterable<T>> itrs, Comparator<? super T> cmp, boolean dropDescending) {
+		List<OrderedIterable<T>> list = new ArrayList<OrderedIterable<T>>();
+		for(Iterable<T> itr : itrs) {
+			list.add(checked(itr, cmp, dropDescending));	
+		}
+		return all(list);
+	}
+	
+	public static <T> OrderedIterable<T> uncheckedAll(Iterable<Iterable<T>> itrs, Comparator<? super T> cmp) {
+		List<OrderedIterable<T>> list = new ArrayList<OrderedIterable<T>>();
+		for(Iterable<T> itr : itrs) {
+			list.add(unchecked(itr, cmp));	
+		}
+		return all(list);
+	}
+	
 	/**
 	 * Return an {@link OrderedIterable} that is the logical union
 	 * of all {@link OrderedIterable}s in the argument {@code itrs}.  If
@@ -116,6 +132,23 @@ public class Scanerator {
 		// return union of any(left) and any(right)
 		return new UnionOrderedIterable<T>(any(left), any(right));
 	}
+
+	public static <T> OrderedIterable<T> checkedAny(Iterable<Iterable<T>> itrs, Comparator<? super T> cmp, boolean dropDescending) {
+		List<OrderedIterable<T>> list = new ArrayList<OrderedIterable<T>>();
+		for(Iterable<T> itr : itrs) {
+			list.add(checked(itr, cmp, dropDescending));	
+		}
+		return any(list);
+	}
+	
+	public static <T> OrderedIterable<T> uncheckedAny(Iterable<Iterable<T>> itrs, Comparator<? super T> cmp) {
+		List<OrderedIterable<T>> list = new ArrayList<OrderedIterable<T>>();
+		for(Iterable<T> itr : itrs) {
+			list.add(unchecked(itr, cmp));	
+		}
+		return any(list);
+	}
+	
 	
 	/**
 	 * Return an {@link OrderedIterable} that is the logical
