@@ -81,14 +81,15 @@ public class Scanerator {
 	 * @return
 	 * @see IntersectionOrderedIterable
 	 */
-	public static <T> OrderedIterable<T> all(List<OrderedIterable<T>> itrs) {
-		if(itrs.size() == 0) // edge case, no elements
+	public static <T> OrderedIterable<T> all(Iterable<OrderedIterable<T>> itrs) {
+		List<OrderedIterable<T>> list = list(itrs);
+		if(list.size() == 0) // edge case, no elements
 			return new EmptyOrderedIterable<T>();
-		if(itrs.size() == 1) // base case, return the only OrderedIterable
-			return itrs.get(0);
+		if(list.size() == 1) // base case, return the only OrderedIterable
+			return list.get(0);
 		// divide and conquer
-		List<OrderedIterable<T>> left = itrs.subList(0, itrs.size() / 2);
-		List<OrderedIterable<T>> right = itrs.subList(itrs.size() / 2, itrs.size());
+		List<OrderedIterable<T>> left = list.subList(0, list.size() / 2);
+		List<OrderedIterable<T>> right = list.subList(list.size() / 2, list.size());
 		// return intersection of all(left) and all(right)
 		return new IntersectionOrderedIterable<T>(all(left), all(right));
 	}
@@ -103,14 +104,15 @@ public class Scanerator {
 	 * @return
 	 * @see UnionOrderedIterable
 	 */
-	public static <T> OrderedIterable<T> any(List<OrderedIterable<T>> itrs) {
-		if(itrs.size() == 0) // edge case, no elements
+	public static <T> OrderedIterable<T> any(Iterable<OrderedIterable<T>> itrs) {
+		List<OrderedIterable<T>> list = list(itrs);
+		if(list.size() == 0) // edge case, no elements
 			return new EmptyOrderedIterable<T>();
-		if(itrs.size() == 1) // base case, return the only OrderedIterable
-			return itrs.get(0);
+		if(list.size() == 1) // base case, return the only OrderedIterable
+			return list.get(0);
 		// divide an conquery
-		List<OrderedIterable<T>> left = itrs.subList(0, itrs.size() / 2);
-		List<OrderedIterable<T>> right = itrs.subList(itrs.size() / 2, itrs.size());
+		List<OrderedIterable<T>> left = list.subList(0, list.size() / 2);
+		List<OrderedIterable<T>> right = list.subList(list.size() / 2, list.size());
 		// return union of any(left) and any(right)
 		return new UnionOrderedIterable<T>(any(left), any(right));
 	}
