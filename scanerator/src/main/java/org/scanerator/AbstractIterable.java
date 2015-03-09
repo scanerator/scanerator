@@ -118,7 +118,6 @@ public abstract class AbstractIterable<T> implements Iterable<T> {
 	 * Create an {@link AbstractIterable} given a {@link Comparator}.
 	 * @param cmp
 	 */
-	@SuppressWarnings("unchecked")
 	public AbstractIterable(Comparator<? super T> cmp) {
 		this.cmp = cmp;
 	}
