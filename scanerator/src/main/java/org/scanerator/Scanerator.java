@@ -48,6 +48,17 @@ public class Scanerator {
 		return new EmptyIterable<T>();
 	}
 	
+	/**
+	 * Return an {@link Iterable} that is the logical intersection
+	 * of all {@link Iterable}s in the argument {@code itrs}.  If {@code itrs}
+	 * is empty, returns an empty {@link Iterable}.  Otherwise, construct
+	 * a binary tree of {@link IntersectionIterable} from the
+	 * elements of {@code itrs} and return that.  Uses {@link Comparators#naturalOrder()}
+	 * to determine element equality.
+	 * @param itrs
+	 * @return
+	 * @see IntersectionIterable
+	 */
 	public static <T> Iterable<T> all(Iterable<Iterable<T>> itrs) {
 		return all(Comparators.naturalOrder(), itrs);
 	}
@@ -75,6 +86,18 @@ public class Scanerator {
 		return new IntersectionIterable<T>(cmp, all(cmp, left), all(cmp, right));
 	}
 	
+	/**
+	 * Return an {@link Iterable} that is the logical union
+	 * of all {@link Iterable}s in the argument {@code itrs}.  If
+	 * {@code itrs} is empty, returns an empty {@link Iterable}.
+	 * Otherwise, construct a binary tree of {@link UnionIterable} from
+	 * the elements of {@code itrs} and return that.  Uses
+	 * {@link Comparators#naturalOrder()} to determine element
+	 * equality.
+	 * @param itrs
+	 * @return
+	 * @see UnionIterable
+	 */
 	public static <T> Iterable<T> any(Iterable<Iterable<T>> itrs) {
 		return any(Comparators.naturalOrder(), itrs);
 	}
@@ -102,6 +125,16 @@ public class Scanerator {
 		return new UnionIterable<T>(cmp, any(cmp, left), any(cmp, right));
 	}
 	
+	/**
+	 * Return an {@link Iterable} that is the logical
+	 * subtraction of {@code rhs} from {@code lhs}.  Uses
+	 * {@link Comparators#naturalOrder()} to determine
+	 * element equality.
+	 * @param lhs
+	 * @param rhs
+	 * @return
+	 * @see SubtractionIterable
+	 */
 	public static <T> Iterable<T> not(Iterable<T> lhs, Iterable<T> rhs) {
 		return not(Comparators.naturalOrder(), lhs, rhs);
 	}
@@ -118,6 +151,16 @@ public class Scanerator {
 		return new SubtractionIterable<T>(cmp, lhs, rhs);
 	}
 	
+	/**
+	 * Return an {@link Iterable} that is the logical
+	 * subtraction of {@code rhs} from {@code lhs}.
+	 * Uses {@link Comparators#naturalOrder()} to determine
+	 * element equality.
+	 * @param lhs
+	 * @param rhs
+	 * @return
+	 * @see SubtractionIterable
+	 */
 	public static <T> Iterable<T> dedup(Iterable<T> itr) {
 		return dedup(Comparators.naturalOrder(), itr);
 	}
