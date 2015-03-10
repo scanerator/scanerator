@@ -5,8 +5,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-import org.scanerator.list.IteratorList;
-
 /**
  * Utility class for dealing with {@link Iterable}s
  * @author robin

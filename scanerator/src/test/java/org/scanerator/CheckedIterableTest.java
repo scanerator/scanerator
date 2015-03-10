@@ -6,8 +6,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.scanerator.list.Lists;
 
-import static org.scanerator.Scanerator.*;
-
 public class CheckedIterableTest {
 	@Test
 	public void testDropDescending() {
