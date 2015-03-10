@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 /**
  * {@link Iterable} consisting of the intersection of elements
  * of two other {@link Iterable}s.  If elements are duplicated
- * in the left- or right-hand {@link Iterable}s then this 
+ * in the left- and right-hand {@link Iterable}s then this 
  * {@link Iterable} will return one of the duplicate object
  * for each pair-wise duplication.
  * @author robin
