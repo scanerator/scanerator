@@ -33,10 +33,10 @@ Basic Usage:
 	List<Integer> mul3 = Arrays.asList(3, 6, 9);
 	
 	// Get an Iterable that is the intersection of mul2 and mul3
-	Iterable<Integer> ord6 = Scanerator.all(Arrays.asList(ord2, ord3));
+	Iterable<Integer> ord6 = Scanerator.all(ord2, ord3);
 	
 	// Convert back to a list
-	List<Integer> mul6 = Scanerator.list(ord6); // List contains only '6'
+	List<Integer> mul6 = Lists.toList(ord6); // List contains only '6'
 
 A more practical example uses [HBase](http://hbase.apache.org/).  The following
 snippet finds all row keys that have a first name and a last name, but do
@@ -69,7 +69,7 @@ not have an address:
 	Iterable<Result> addresses = table.getScanner(addressesScan;
 	
 	// Perform the boolean operation on the OrderedIterables
-	Iterable<Result> named = Scanerator.all(rowOrder, Arrays.asList(firstNames, lastNames));
+	Iterable<Result> named = Scanerator.all(rowOrder, firstNames, lastNames);
 	Iterable<Result> missingAddress = Scanerator.not(rowOrder, named, addresses);
 
 ## Maven Repository
