@@ -14,17 +14,6 @@ import java.util.Iterator;
 public class Expression<T> implements Iterable<T> {
 	
 	/**
-	 * Return a new {@link ExpressionRoot} for beginning {@link Expression} sequences,
-	 * using the given {@link Comparator}.
-	 * @param cmp The {@link Comparator} for the {@link Expression}
-	 * @return A new {@link ExpressionRoot}
-	 * @see ExpressionRoot#ExpressionRoot(Comparator)
-	 */
-	public static <T> ExpressionRoot<T> with(Comparator<? super T> cmp) {
-		return new ExpressionRoot<T>(cmp);
-	}
-	
-	/**
 	 * Possible types of input validation for {@link Iterable} instances
 	 * given as arguments to an {@link Expression}.  Validation means
 	 * ensuring that the elements are in ascending order according
