@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
  *
  * @param <T>
  */
-public class DedupIterable<T> extends AbstractIterable<T> {
+public class DedupIterable<T> extends AbstractOrderedIterable<T> {
 
 	/**
 	 * The wrapped {@link Iterable}

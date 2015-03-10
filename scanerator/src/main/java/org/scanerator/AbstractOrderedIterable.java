@@ -10,7 +10,7 @@ import java.util.PriorityQueue;
  *
  * @param <T>
  */
-public abstract class AbstractIterable<T> implements Iterable<T> {
+public abstract class AbstractOrderedIterable<T> implements Iterable<T> {
 
 	/**
 	 * Simple wrapper around {@link PriorityQueue} that enforces
@@ -115,10 +115,10 @@ public abstract class AbstractIterable<T> implements Iterable<T> {
 	protected Comparator<? super T> cmp;
 	
 	/**
-	 * Create an {@link AbstractIterable} given a {@link Comparator}.
+	 * Create an {@link AbstractOrderedIterable} given a {@link Comparator}.
 	 * @param cmp
 	 */
-	public AbstractIterable(Comparator<? super T> cmp) {
+	public AbstractOrderedIterable(Comparator<? super T> cmp) {
 		this.cmp = cmp;
 	}
 	

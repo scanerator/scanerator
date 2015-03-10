@@ -16,7 +16,7 @@ import java.util.NoSuchElementException;
  *
  * @param <T>
  */
-public class CheckedIterable<T> extends AbstractIterable<T> {
+public class CheckedIterable<T> extends AbstractOrderedIterable<T> {
 
 	/**
 	 * The wrapped {@link Iterable}

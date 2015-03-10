@@ -16,7 +16,7 @@ import java.util.NoSuchElementException;
  *
  * @param <T>
  */
-public class IntersectionIterable<T> extends AbstractIterable<T> {
+public class IntersectionIterable<T> extends AbstractOrderedIterable<T> {
 
 	/**
 	 * The left-hand side of the intersection

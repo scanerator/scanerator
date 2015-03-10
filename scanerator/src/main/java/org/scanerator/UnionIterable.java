@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
  *
  * @param <T>
  */
-public class UnionIterable<T> extends AbstractIterable<T> {
+public class UnionIterable<T> extends AbstractOrderedIterable<T> {
 
 	/**
 	 * The left-hand side of the union

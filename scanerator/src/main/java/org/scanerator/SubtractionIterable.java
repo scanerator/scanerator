@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
  *
  * @param <T>
  */
-public class SubtractionIterable<T> extends AbstractIterable<T> {
+public class SubtractionIterable<T> extends AbstractOrderedIterable<T> {
 
 	/**
 	 * The left-hand side {@link Iterable}
