@@ -6,7 +6,7 @@ import java.util.Deque;
 
 public class ForgetfulList<E> extends AbstractList<E> {
 	
-	protected static class Memory<E> {
+	protected class Memory {
 		public int index;
 		public E value;
 		
@@ -26,27 +26,27 @@ public class ForgetfulList<E> extends AbstractList<E> {
 		
 		@Override
 		public boolean equals(Object obj) {
-			if(!(obj instanceof Memory<?>))
+			if(!(obj instanceof ForgetfulList.Memory))
 				return false;
-			return index == ((Memory<?>) obj).index;
+			return index == ((ForgetfulList<?>.Memory) obj).index;
 		}
 	}
 
 	protected int size;
 	protected int capacity;
-	protected Deque<Memory<E>> memory;
+	protected Deque<Memory> memory;
 	
 	public ForgetfulList(int capacity) {
 		this.capacity = capacity;
 		size = 0;
-		memory = new ArrayDeque<Memory<E>>();
+		memory = new ArrayDeque<Memory>();
 	}
 	
 	@Override
 	public E get(int index) {
 		if(index < 0 || index >= size())
 			throw new IndexOutOfBoundsException();
-		for(Memory<E> m : memory) {
+		for(Memory m : memory) {
 			if(index == m.index) {
 				memory.remove(m);
 				memory.offerLast(m);
@@ -65,7 +65,7 @@ public class ForgetfulList<E> extends AbstractList<E> {
 	public E set(int index, E element) {
 		if(index < 0 || index >= size())
 			throw new IndexOutOfBoundsException();
-		for(Memory<E> m : memory) {
+		for(Memory m : memory) {
 			if(index == m.index) {
 				memory.remove(m);
 				memory.offerLast(m);
@@ -81,11 +81,11 @@ public class ForgetfulList<E> extends AbstractList<E> {
 	public void add(int index, E element) {
 		if(index < 0 || index > size())
 			throw new IndexOutOfBoundsException();
-		for(Memory<E> m : memory) {
+		for(Memory m : memory) {
 			if(index <= m.index)
 				m.index++;
 		}
-		memory.offerLast(new Memory<E>(index, element));
+		memory.offerLast(new Memory(index, element));
 		while(memory.size() > capacity)
 			memory.pollFirst();
 		size++;
@@ -95,10 +95,10 @@ public class ForgetfulList<E> extends AbstractList<E> {
 	public E remove(int index) {
 		if(index < 0 || index >= size())
 			throw new IndexOutOfBoundsException();
-		for(Memory<E> m : memory) {
+		for(Memory m : memory) {
 			if(index == m.index) {
 				memory.remove(m);
-				for(Memory<E> mm : memory) {
+				for(Memory mm : memory) {
 					if(index < mm.index)
 						mm.index--;
 				}
