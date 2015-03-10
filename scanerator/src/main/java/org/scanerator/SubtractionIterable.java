@@ -62,11 +62,11 @@ public class SubtractionIterable<T> extends AbstractIterable<T> {
 		/**
 		 * The next element from the left-hand side
 		 */
-		protected PQ lnext = new PQ(1);
+		protected Box lnext = new Box(1);
 		/**
 		 * The next element from the right-hand side
 		 */
-		protected PQ rnext = new PQ(1);
+		protected Box rnext = new Box(1);
 		
 		/**
 		 * Advance {@link #litr} and {@link #ritr} past

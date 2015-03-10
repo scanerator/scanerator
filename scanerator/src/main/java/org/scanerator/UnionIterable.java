@@ -62,7 +62,7 @@ public class UnionIterable<T> extends AbstractIterable<T> {
 		/**
 		 * Upcoming elements
 		 */
-		protected PQ next = new PQ(2);
+		protected Box next = new Box(2);
 		/**
 		 * Most recent lhs element
 		 */

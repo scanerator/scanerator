@@ -18,28 +18,28 @@ public abstract class AbstractIterable<T> implements Iterable<T> {
 	 * @author robin
 	 *
 	 */
-	protected class PQ {
+	protected class Box {
 		/**
-		 * The max capacity of this {@link PQ}
+		 * The max capacity of this {@link Box}
 		 */
 		private int capacity;
 		/**
-		 * The {@link PriorityQueue} backing this {@link PQ}
+		 * The {@link PriorityQueue} backing this {@link Box}
 		 */
 		private PriorityQueue<T> items = new PriorityQueue<T>(1, cmp());
 		
 		/**
-		 * Create a new {@link PQ} with a specified maximum capacity
+		 * Create a new {@link Box} with a specified maximum capacity
 		 * @param capacity
 		 */
-		public PQ(int capacity) {
+		public Box(int capacity) {
 			if(capacity <= 0)
 				throw new IllegalArgumentException("Box capacity must be positive");
 			this.capacity = capacity;
 		}
 		
 		/**
-		 * Returns whether this {@link PQ} is full
+		 * Returns whether this {@link Box} is full
 		 * @return
 		 */
 		public boolean isFull() {
@@ -47,7 +47,7 @@ public abstract class AbstractIterable<T> implements Iterable<T> {
 		}
 		
 		/**
-		 * Returns whether this {@link PQ} is empty
+		 * Returns whether this {@link Box} is empty
 		 * @return
 		 * @see PriorityQueue#isEmpty()
 		 */
@@ -56,7 +56,7 @@ public abstract class AbstractIterable<T> implements Iterable<T> {
 		}
 		
 		/**
-		 * Returns the maximum capacity of this {@link PQ}
+		 * Returns the maximum capacity of this {@link Box}
 		 * @return
 		 */
 		public int capacity() {
@@ -64,7 +64,7 @@ public abstract class AbstractIterable<T> implements Iterable<T> {
 		}
 		
 		/**
-		 * Returns the current size of this {@link PQ}
+		 * Returns the current size of this {@link Box}
 		 * @return
 		 * @see PriorityQueue#size()
 		 */
@@ -73,8 +73,8 @@ public abstract class AbstractIterable<T> implements Iterable<T> {
 		}
 		
 		/**
-		 * Offer an item to this {@link PQ}.  Throws {@link IllegalStateException} if
-		 * this {@link PQ} is full.
+		 * Offer an item to this {@link Box}.  Throws {@link IllegalStateException} if
+		 * this {@link Box} is full.
 		 * @param item
 		 * @see PriorityQueue#offer(Object)
 		 */
@@ -85,8 +85,8 @@ public abstract class AbstractIterable<T> implements Iterable<T> {
 		}
 		
 		/**
-		 * Poll an item from this {@link PQ}.  Throws {@link IllegalStateException} if
-		 * this {@link PQ} is empty.
+		 * Poll an item from this {@link Box}.  Throws {@link IllegalStateException} if
+		 * this {@link Box} is empty.
 		 * @return
 		 * @see PriorityQueue#poll()
 		 */
@@ -97,8 +97,8 @@ public abstract class AbstractIterable<T> implements Iterable<T> {
 		}
 		
 		/**
-		 * Peek at the head item from this {@link PQ}.  Throws {@link IllegalStateException}
-		 * if this {@link PQ} is empty.
+		 * Peek at the head item from this {@link Box}.  Throws {@link IllegalStateException}
+		 * if this {@link Box} is empty.
 		 * @return
 		 * @see PriorityQueue#peek()
 		 */

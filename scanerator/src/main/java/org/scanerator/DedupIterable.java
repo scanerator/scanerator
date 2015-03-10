@@ -52,7 +52,7 @@ public class DedupIterable<T> extends AbstractIterable<T> {
 		/**
 		 * Upcoming unique elements
 		 */
-		protected PQ next = new PQ(2);
+		protected Box next = new Box(2);
 
 		public Itr() {
 			if(itr.hasNext()) { // if there's at least one wrapped element
