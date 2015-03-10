@@ -1,12 +1,12 @@
 package org.scanerator;
 
 import static org.scanerator.Scanerator.*;
-import static org.scanerator.Util.*;
 
 import java.util.Arrays;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.scanerator.list.Lists;
 
 public class IntersectionIterableTest {
 	@Test
@@ -15,6 +15,6 @@ public class IntersectionIterableTest {
 		Iterable<Integer> right = checked(Arrays.asList(2, 3, 3, 3, 4));
 		Assert.assertEquals(
 				Arrays.asList(2, 3, 3, 4),
-				list(new IntersectionIterable<Integer>(left, right)));
+				Lists.toList(new IntersectionIterable<Integer>(left, right)));
 	}
 }

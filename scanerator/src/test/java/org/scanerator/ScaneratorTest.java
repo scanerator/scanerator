@@ -4,9 +4,9 @@ import java.util.Arrays;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.scanerator.list.Lists;
 
 import static org.scanerator.Scanerator.*;
-import static org.scanerator.Util.*;
 
 @SuppressWarnings("unchecked")
 public class ScaneratorTest {
@@ -17,7 +17,7 @@ public class ScaneratorTest {
 	@Test
 	public void testChecked() {
 		try {
-			list(checked(Arrays.asList(3, 2, 1)));
+			Lists.toList(checked(Arrays.asList(3, 2, 1))).size();
 			Assert.fail();
 		} catch(IllegalStateException e) {
 			// expected
@@ -26,21 +26,21 @@ public class ScaneratorTest {
 	
 	@Test
 	public void testAll() {
-		Assert.assertEquals(Arrays.asList(6, 12), list(all(Arrays.asList(mul2, mul3))));
+		Assert.assertEquals(Arrays.asList(6, 12), Lists.toList(all(Arrays.asList(mul2, mul3))));
 		
-		Assert.assertEquals(list(mul2), list(all(Arrays.asList(mul2, mul2, mul2, mul2, mul2))));
+		Assert.assertEquals(Lists.toList(mul2), Lists.toList(all(Arrays.asList(mul2, mul2, mul2, mul2, mul2))));
 		
-		Assert.assertEquals(Arrays.asList(12), list(all(Arrays.asList(mul2, mul3, mul4))));
+		Assert.assertEquals(Arrays.asList(12), Lists.toList(all(Arrays.asList(mul2, mul3, mul4))));
 	}
 	
 	@Test
 	public void testAny() {
-		Assert.assertEquals(Arrays.asList(2,3,4,6,6,8,9,10,12,12,14, 15), list(any(Arrays.asList(mul2, mul3))));
+		Assert.assertEquals(Arrays.asList(2,3,4,6,6,8,9,10,12,12,14, 15), Lists.toList(any(Arrays.asList(mul2, mul3))));
 	}
 	
 	@Test
 	public void testNot() {
-		Assert.assertEquals(Arrays.asList(2, 4, 8, 10, 14), list(not(mul2, mul3)));
+		Assert.assertEquals(Arrays.asList(2, 4, 8, 10, 14), Lists.toList(not(mul2, mul3)));
 	}
 	
 	@Test

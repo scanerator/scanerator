@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import org.scanerator.list.IteratorList;
+
 /**
  * Utility class for dealing with {@link Iterable}s
  * @author robin
@@ -261,13 +263,13 @@ public class Scanerator {
 	public static <T> Iterable<T> empty() {
 		return new EmptyIterable<T>();
 	}
-	
+
 	private Scanerator() {}
-	
+
 	private static <T> List<T> list(Iterable<T> itr) {
-		List<T> ret = new ArrayList<T>();
-		for(T obj : itr)
-			ret.add(obj);
-		return ret;
+		List<T> list = new ArrayList<T>();
+		for(T e : itr)
+			list.add(e);
+		return list;
 	}
 }
