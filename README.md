@@ -72,6 +72,57 @@ not have an address:
 	Iterable<Result> named = Scanerator.all(rowOrder, firstNames, lastNames);
 	Iterable<Result> missingAddress = Scanerator.not(rowOrder, named, addresses);
 
+This snippet, also using [HBase](http://hbase.apache.org/), demonstrates a solution
+to the "pick 2 of 3" problem using [Expression](scanerator/src/main/java/org/scanerator/Expression.java)
+objects, which themselves implement `Iterable`.
+
+	/*
+	 * Locate all rows that are combinations of fast, easy, and accurate
+	 */
+	
+	HTable table = ...;
+	
+	// Create Scan objects for first name, last name, and address
+	Scan fastScan = new Scan().addColumn(Bytes.toBytes("task"), Bytes.toBytes("fast"));
+	Scan easyScan = new Scan().addColumn(Bytes.toBytes("task"), Bytes.toBytes("easy"));
+	Scan accurateScan = new Scan().addColumn(Bytes.toBytes("task"), Bytes.toBytes("accurate"));
+	
+	// Need a comparator for Result objects
+	Comparator<Result> rowOrder = new Comparator<Result>() {
+		@Override
+		public void compare(Result r1, Result r2) {
+			return Bytes.BYTES_COMPARATOR.compare(r1.getRow(), r2.getRow());
+		}
+	};
+	
+	// Get the ResultScanners and convert them to unchecked OrderedIterables.
+	// Unchecked is okay because ResultScanner always returns its elements in
+	// row-key order, consistent with the above comparator.
+	Iterable<Result> fast = table.getScanner(firstNamesScan);
+	Iterable<Result> easy = table.getScanner(lastNamesScan);
+	Iterable<Result> accurate = table.getScanner(addressesScan;
+	
+	// Perform the boolean operation on the OrderedIterables
+	ExpressionRoot root = Scanerator.with(rowOrder);
+	
+	Expression<Result> pick3 = root.express(fast).and(easy).and(accurate);
+	
+	Expression<Result> pick2 =
+		root.express(
+			root.express(fast).and(easy).not(accurate)
+		).or(
+			root.express(easy).and(accurate).not(fast)
+		).or(
+			root.express(accurate).and(fast).not(easy)
+		);
+	
+	Expression<Result> pick1 = 
+		root.express(
+			root.express(fast).or(easy).or(accurate)
+		).not(
+			pick2.or(pick3)
+		);
+
 ## Maven Repository
 **Scanerator** is not yet on maven central, so a `<repository>` element is
 required to depend on it.  The following snippet may be used:
