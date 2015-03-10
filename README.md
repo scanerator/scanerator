@@ -68,7 +68,7 @@ not have an address:
 	Iterable<Result> lastNames = table.getScanner(lastNamesScan);
 	Iterable<Result> addresses = table.getScanner(addressesScan;
 	
-	// Perform the boolean operation on the OrderedIterables
+	// Perform the boolean operation on the Iterables
 	Iterable<Result> named = Scanerator.all(rowOrder, firstNames, lastNames);
 	Iterable<Result> missingAddress = Scanerator.not(rowOrder, named, addresses);
 
@@ -102,7 +102,7 @@ objects, which themselves implement `Iterable`.
 	Iterable<Result> easy = table.getScanner(lastNamesScan);
 	Iterable<Result> accurate = table.getScanner(addressesScan;
 	
-	// Perform the boolean operation on the OrderedIterables
+	// Perform the boolean operations with Expression objects
 	ExpressionRoot root = Scanerator.with(rowOrder);
 	
 	Expression<Result> pick3 = root.express(fast).and(easy).and(accurate);
