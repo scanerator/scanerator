@@ -19,6 +19,8 @@ public class IteratorList<E> extends AbstractList<E> implements RandomAccess {
 	}
 	
 	public IteratorList(List<E> cache, Iterator<E> itr) {
+		if(cache == null || itr == null)
+			throw new IllegalArgumentException();
 		this.itr = itr;
 		this.cache = cache;
 	}

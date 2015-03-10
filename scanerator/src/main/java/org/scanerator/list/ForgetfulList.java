@@ -37,6 +37,8 @@ public class ForgetfulList<E> extends AbstractList<E> {
 	protected Deque<Memory> memory;
 	
 	public ForgetfulList(int capacity) {
+		if(capacity <= 0)
+			throw new IllegalArgumentException();
 		this.capacity = capacity;
 		size = 0;
 		memory = new ArrayDeque<Memory>();
