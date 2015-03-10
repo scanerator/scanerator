@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static org.scanerator.Scanerator.*;
+import static org.scanerator.Util.*;
 
 @SuppressWarnings("unchecked")
 public class ScaneratorTest {
@@ -45,6 +46,6 @@ public class ScaneratorTest {
 	@Test
 	public void testStrings() {
 		Iterable<Object> all = all(Arrays.asList(empty(), empty(), empty(), empty()));
-		Assert.assertEquals("(all (all (empty) (empty)) (all (empty) (empty)))", all.toString());
+		Assert.assertEquals("(all (all [] []) (all [] []))", all.toString());
 	}
 }

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.scanerator.Scanerator.*;
+import static org.scanerator.Util.*;
 
 public class CheckedIterableTest {
 	@Test

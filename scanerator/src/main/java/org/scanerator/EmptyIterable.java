@@ -23,9 +23,14 @@ public class EmptyIterable<T> implements Iterable<T> {
 	
 	@Override
 	public String toString() {
-		return "(empty)";
+		return "[]";
 	}
 
+	/**
+	 * An empty iterator
+	 * @author robin
+	 *
+	 */
 	protected class Itr implements Iterator<T> {
 		@Override
 		public boolean hasNext() {

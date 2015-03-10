@@ -1,6 +1,7 @@
 package org.scanerator;
 
 import static org.scanerator.Scanerator.*;
+import static org.scanerator.Util.*;
 
 import java.util.Arrays;
 
