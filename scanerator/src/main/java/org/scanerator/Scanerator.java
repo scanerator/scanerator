@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import org.scanerator.Expression.ExpressionRoot;
+
 /**
  * Utility class for dealing with {@link Iterable}s
  * @author robin
@@ -261,7 +263,26 @@ public class Scanerator {
 	public static <T> Iterable<T> empty() {
 		return new EmptyIterable<T>();
 	}
+	
+	/**
+	 * Return a new {@link ExpressionRoot} from which {@link Expression}s can
+	 * be built.
+	 * @param cmp The {@link Comparator} for use by the {@link Expression}
+	 * @return A new {@link ExpressionRoot}
+	 */
+	public static <T> ExpressionRoot<T> with(Comparator<? super T> cmp) {
+		return new ExpressionRoot<T>(cmp);
+	}
 
+	/**
+	 * Return a new {@link ExpressionRoot}, using {@link Comparators#naturalOrder()},
+	 * from which {@link Expression}s can be built
+	 * @return A new {@link ExpressionRoot}
+	 */
+	public static <T> ExpressionRoot<T> withNaturalOrder() {
+		return new ExpressionRoot<T>(Comparators.naturalOrder());
+	}
+	
 	private Scanerator() {}
 
 	private static <T> List<T> list(Iterable<T> itr) {

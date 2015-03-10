@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.scanerator.Expression.ExpressionRoot;
 import org.scanerator.list.Lists;
 
 import static org.scanerator.Scanerator.*;
@@ -47,5 +48,15 @@ public class ScaneratorTest {
 	public void testStrings() {
 		Iterable<Object> all = all(Arrays.asList(empty(), empty(), empty(), empty()));
 		Assert.assertEquals("(all (all [] []) (all [] []))", all.toString());
+	}
+	
+	@Test
+	public void testWithAll() {
+		ExpressionRoot<Integer> root = Scanerator.withNaturalOrder();
+		Assert.assertEquals(Arrays.asList(6, 12), Lists.toList(root.express(mul2).and(mul3)));
+		Assert.assertEquals(Arrays.asList(6), Lists.toList(root.express(mul2).and(mul3).not(mul4)));
+		
+		Assert.assertEquals(Arrays.asList(2, 10, 14), Lists.toList(root.express(mul2).not(mul3).not(mul4)));
+		Assert.assertEquals(Arrays.asList(2, 10, 14), Lists.toList(root.express(mul2).not(root.express(mul3).or(mul4))));
 	}
 }
