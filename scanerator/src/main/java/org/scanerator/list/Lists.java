@@ -2,6 +2,11 @@ package org.scanerator.list;
 
 import java.util.List;
 
+/**
+ * Utility functions for creating and using lazy lists.
+ * @author robin
+ *
+ */
 public class Lists {
 
 	/**
