@@ -119,6 +119,8 @@ public abstract class AbstractOrderedIterable<T> implements Iterable<T> {
 	 * @param cmp
 	 */
 	public AbstractOrderedIterable(Comparator<? super T> cmp) {
+		if(cmp == null)
+			throw new IllegalArgumentException();
 		this.cmp = cmp;
 	}
 	

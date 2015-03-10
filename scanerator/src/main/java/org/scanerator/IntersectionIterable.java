@@ -39,6 +39,8 @@ public class IntersectionIterable<T> extends AbstractOrderedIterable<T> {
 	 */
 	public IntersectionIterable(Comparator<? super T> cmp, Iterable<T> lhs, Iterable<T> rhs) {
 		super(cmp);
+		if(lhs == null || rhs == null)
+			throw new IllegalArgumentException();
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}

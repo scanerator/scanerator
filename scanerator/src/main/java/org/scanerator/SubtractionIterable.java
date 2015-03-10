@@ -36,6 +36,8 @@ public class SubtractionIterable<T> extends AbstractOrderedIterable<T> {
 	 */
 	public SubtractionIterable(Comparator<? super T> cmp, Iterable<T> lhs, Iterable<T> rhs) {
 		super(cmp);
+		if(lhs == null || rhs == null)
+			throw new IllegalArgumentException();
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}

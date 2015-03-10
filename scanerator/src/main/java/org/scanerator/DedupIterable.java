@@ -31,6 +31,8 @@ public class DedupIterable<T> extends AbstractOrderedIterable<T> {
 	 */
 	public DedupIterable(Comparator<? super T> cmp, Iterable<T> wrapped) {
 		super(cmp);
+		if(wrapped == null)
+			throw new IllegalArgumentException();
 		this.wrapped = wrapped;
 	}
 

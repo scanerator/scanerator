@@ -41,6 +41,8 @@ public class CheckedIterable<T> extends AbstractOrderedIterable<T> {
 	 */
 	public CheckedIterable(Comparator<? super T> cmp, Iterable<T> itr, boolean dropDescending) {
 		super(cmp);
+		if(itr == null)
+			throw new IllegalArgumentException();
 		this.wrapped = itr;
 		this.dropDescending = dropDescending;
 	}
