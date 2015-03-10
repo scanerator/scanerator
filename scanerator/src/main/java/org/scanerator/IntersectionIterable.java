@@ -9,9 +9,7 @@ import java.util.NoSuchElementException;
  * of two other {@link Iterable}s.  If elements are duplicated
  * in the left- or right-hand {@link Iterable}s then this 
  * {@link Iterable} will return one of the duplicate object
- * for each pair-wise duplication.  Equality is determined by
- * the {@link Comparator} returned by {@link #cmp()}, not by
- * calling {@link Object#equals(Object)}.
+ * for each pair-wise duplication.
  * @author robin
  *
  * @param <T>

@@ -14,7 +14,7 @@ public class Scanerator {
 	
 	/**
 	 * Return an {@link Iterable} that wraps (and checks) the {@link Iterable} argument
-	 * using the "natural order" {@link Comparator}, {@link Comparators#NATURAL_ORDER},
+	 * using the "natural order" {@link Comparator}, {@link Comparators#naturalOrder()},
 	 * throwing an {@link IllegalStateException} if the wrapped {@link Iterable}
 	 * returns an out-of-order element.
 	 * @param itr The {@link Iterable} to be wrapped

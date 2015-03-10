@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
- * Base implementation of {@link Iterable}.  Extensions of this
+ * Abstract utility class for an orderable {@link Iterable}.  Extensions of this
  * class must supply the {@link #iterator()} method.
  * @author robin
  *
