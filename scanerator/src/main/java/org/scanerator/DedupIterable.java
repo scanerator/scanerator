@@ -18,6 +18,10 @@ public class DedupIterable<T> extends AbstractOrderedIterable<T> {
 	 */
 	protected Iterable<T> wrapped;
 
+	/**
+	 * Create a {@link DedupIterable} using {@link Comparators#naturalOrder()}
+	 * @param wrapped The {@link Iterable} to de-duplicate
+	 */
 	public DedupIterable(Iterable<T> wrapped) {
 		this(Comparators.naturalOrder(), wrapped);
 	}
@@ -26,8 +30,8 @@ public class DedupIterable<T> extends AbstractOrderedIterable<T> {
 	 * Create an {@link Iterable} that removes duplicate elements
 	 * from the wrapped {@link Iterable}, comparing according
 	 * to the argument {@link Comparator}
-	 * @param wrapped
-	 * @param cmp
+	 * @param cmp The {@link Comparator} for equality
+	 * @param wrapped The {@link Iterable} to de-duplicate
 	 */
 	public DedupIterable(Comparator<? super T> cmp, Iterable<T> wrapped) {
 		super(cmp);

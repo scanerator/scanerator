@@ -24,6 +24,11 @@ public class SubtractionIterable<T> extends AbstractOrderedIterable<T> {
 	 */
 	protected Iterable<T> rhs;
 	
+	/**
+	 * Create a {@link SubtractionIterable} using {@link Comparators#naturalOrder()}
+	 * @param lhs Left-hand {@link Iterable} for subtraction
+	 * @param rhs Right-hand {@link Iterable} for subtraction
+	 */
 	public SubtractionIterable(Iterable<T> lhs, Iterable<T> rhs) {
 		this(Comparators.naturalOrder(), lhs, rhs);
 	}
@@ -31,8 +36,9 @@ public class SubtractionIterable<T> extends AbstractOrderedIterable<T> {
 	/**
 	 * Create an {@link Iterable} that is the logical subtraction
 	 * of {@code lhs} from {@code rhs}.
-	 * @param lhs
-	 * @param rhs
+	 * @param cmp {@link Comparator} for equality
+	 * @param lhs Left-hand {@link Iterable} for subtraction
+	 * @param rhs Right-hand {@link Iterable} for subtraction
 	 */
 	public SubtractionIterable(Comparator<? super T> cmp, Iterable<T> lhs, Iterable<T> rhs) {
 		super(cmp);

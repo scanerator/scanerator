@@ -157,7 +157,7 @@ public class Scanerator {
 	 * the elements of {@code itrs} and return that.
 	 * @param cmp {@link Comparator} for equality
 	 * @param itrs {@link Iterable}s to be unioned
-	 * @return
+	 * @return A new {@link Iterable}
 	 * @see UnionIterable
 	 */
 	public static <T> Iterable<T> any(Comparator<? super T> cmp, Iterable<Iterable<T>> itrs) {

@@ -19,10 +19,11 @@ public class Comparators {
 			return ((Comparable) o1).compareTo(o2);
 		}
 	};
-	
+
 	/**
 	 * {@link Comparator} which uses "natural ordering"; compares by
 	 * casting objects to {@link Comparable} and calling {@link Comparable#compareTo(Object)}
+	 * @return The natural-ordering {@link Comparator}
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> Comparator<T> naturalOrder() {

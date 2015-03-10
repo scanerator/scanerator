@@ -27,6 +27,12 @@ public class CheckedIterable<T> extends AbstractOrderedIterable<T> {
 	 */
 	protected boolean dropDescending;
 	
+	/**
+	 * Create a new {@link CheckedIterable} using {@link Comparators#naturalOrder()}
+	 * @param itr The {@link Iterable} to wrap
+	 * @param dropDescending {@code true} to drop descending elements, {@code false} to
+	 * throw an exception on descending elements
+	 */
 	public CheckedIterable(Iterable<T> itr, boolean dropDescending) {
 		this(Comparators.naturalOrder(), itr, dropDescending);
 	}
@@ -35,9 +41,10 @@ public class CheckedIterable<T> extends AbstractOrderedIterable<T> {
 	 * Create an {@link Iterable} wrapping an {@link Iterable}, enforced
 	 * by a {@link Comparator}, that either drops out-of-order elements
 	 * or throws an exception, depending on {@code dropDescending}
-	 * @param itr
-	 * @param cmp
-	 * @param dropDescending
+	 * @param cmp {@link Comparator} for element ordering
+	 * @param itr The {@link Iterable} to wrap
+	 * @param dropDescending {@code true} to drop descending elements, {@code false} to
+	 * throw an exception on descending elements
 	 */
 	public CheckedIterable(Comparator<? super T> cmp, Iterable<T> itr, boolean dropDescending) {
 		super(cmp);

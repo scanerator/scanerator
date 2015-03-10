@@ -27,6 +27,11 @@ public class IntersectionIterable<T> extends AbstractOrderedIterable<T> {
 	 */
 	protected Iterable<T> rhs;
 	
+	/**
+	 * Create a new {@link IntersectionIterable} using {@link Comparators#naturalOrder()}
+	 * @param lhs Left-hand {@link Iterable} for intersection
+	 * @param rhs Right-hand {@link Iterable} for intersection
+	 */
 	public IntersectionIterable(Iterable<T> lhs, Iterable<T> rhs) {
 		this(Comparators.naturalOrder(), lhs, rhs);
 	}
@@ -34,8 +39,9 @@ public class IntersectionIterable<T> extends AbstractOrderedIterable<T> {
 	/**
 	 * Create a new {@link IntersectionIterable}, which returns elements
 	 * that are the intersection of those found in {@code lhs} and {@code rhs}
-	 * @param lhs
-	 * @param rhs
+	 * @param cmp {@link Comparator} for equality
+	 * @param lhs Left-hand {@link Iterable} for intersection
+	 * @param rhs Right-hand {@link Iterable} for intersection
 	 */
 	public IntersectionIterable(Comparator<? super T> cmp, Iterable<T> lhs, Iterable<T> rhs) {
 		super(cmp);

@@ -30,7 +30,7 @@ public abstract class AbstractOrderedIterable<T> implements Iterable<T> {
 		
 		/**
 		 * Create a new {@link Box} with a specified maximum capacity
-		 * @param capacity
+		 * @param capacity the max capacity
 		 */
 		public Box(int capacity) {
 			if(capacity <= 0)
@@ -40,7 +40,7 @@ public abstract class AbstractOrderedIterable<T> implements Iterable<T> {
 		
 		/**
 		 * Returns whether this {@link Box} is full
-		 * @return
+		 * @return {@code true} if full
 		 */
 		public boolean isFull() {
 			return items.size() == capacity;
@@ -48,7 +48,7 @@ public abstract class AbstractOrderedIterable<T> implements Iterable<T> {
 		
 		/**
 		 * Returns whether this {@link Box} is empty
-		 * @return
+		 * @return {@code true} if empty
 		 * @see PriorityQueue#isEmpty()
 		 */
 		public boolean isEmpty() {
@@ -57,7 +57,7 @@ public abstract class AbstractOrderedIterable<T> implements Iterable<T> {
 		
 		/**
 		 * Returns the maximum capacity of this {@link Box}
-		 * @return
+		 * @return the max capacity
 		 */
 		public int capacity() {
 			return capacity;
@@ -65,7 +65,7 @@ public abstract class AbstractOrderedIterable<T> implements Iterable<T> {
 		
 		/**
 		 * Returns the current size of this {@link Box}
-		 * @return
+		 * @return the current size
 		 * @see PriorityQueue#size()
 		 */
 		public int size() {
@@ -75,7 +75,7 @@ public abstract class AbstractOrderedIterable<T> implements Iterable<T> {
 		/**
 		 * Offer an item to this {@link Box}.  Throws {@link IllegalStateException} if
 		 * this {@link Box} is full.
-		 * @param item
+		 * @param item The item to put in the {@link Box}
 		 * @see PriorityQueue#offer(Object)
 		 */
 		public void offer(T item) {
@@ -87,7 +87,7 @@ public abstract class AbstractOrderedIterable<T> implements Iterable<T> {
 		/**
 		 * Poll an item from this {@link Box}.  Throws {@link IllegalStateException} if
 		 * this {@link Box} is empty.
-		 * @return
+		 * @return The item removed from the {@link Box}
 		 * @see PriorityQueue#poll()
 		 */
 		public T poll() {
@@ -99,7 +99,7 @@ public abstract class AbstractOrderedIterable<T> implements Iterable<T> {
 		/**
 		 * Peek at the head item from this {@link Box}.  Throws {@link IllegalStateException}
 		 * if this {@link Box} is empty.
-		 * @return
+		 * @return The next item that would be removed by a call to {@link #poll()}
 		 * @see PriorityQueue#peek()
 		 */
 		public T peek() {
@@ -116,7 +116,7 @@ public abstract class AbstractOrderedIterable<T> implements Iterable<T> {
 	
 	/**
 	 * Create an {@link AbstractOrderedIterable} given a {@link Comparator}.
-	 * @param cmp
+	 * @param cmp The {@link Comparator} for ordering
 	 */
 	public AbstractOrderedIterable(Comparator<? super T> cmp) {
 		if(cmp == null)
@@ -124,6 +124,10 @@ public abstract class AbstractOrderedIterable<T> implements Iterable<T> {
 		this.cmp = cmp;
 	}
 	
+	/**
+	 * Returns the {@link Comparator} for ordering
+	 * @return The {@link Comparator} that orders this {@link Iterable}
+	 */
 	protected Comparator<? super T> cmp() {
 		return cmp;
 	}

@@ -24,6 +24,11 @@ public class UnionIterable<T> extends AbstractOrderedIterable<T> {
 	 */
 	protected Iterable<T> rhs;
 	
+	/**
+	 * Create a {@link UnionIterable} using {@link Comparators#naturalOrder()}
+	 * @param lhs Left-hand {@link Iterable} for union
+	 * @param rhs Right-hand {@link Iterable} for union
+	 */
 	public UnionIterable(Iterable<T> lhs, Iterable<T> rhs) {
 		this(Comparators.naturalOrder(), lhs, rhs);
 	}
@@ -31,8 +36,9 @@ public class UnionIterable<T> extends AbstractOrderedIterable<T> {
 	/**
 	 * Create a new {@link Iterable} that is the logical union
 	 * of {@code lhs} and {@code rhs}
-	 * @param lhs
-	 * @param rhs
+	 * @param cmp The {@link Comparator} for equality
+	 * @param lhs Left-hand {@link Iterable} for union
+	 * @param rhs Right-hand {@link Iterable} for union
 	 */
 	public UnionIterable(Comparator<? super T> cmp, Iterable<T> lhs, Iterable<T> rhs) {
 		super(cmp);
